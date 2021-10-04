@@ -9,7 +9,7 @@ const QuestionsList = ({setAuth}) => {
 
     async function getQuestions(){
         try {
-            const response = await fetch("http://localhost:5000/my-questions/", {
+            const response = await fetch("/my-questions/", {
                 method: "GET",
                 headers: {token: localStorage.token}
             });
@@ -26,7 +26,7 @@ const QuestionsList = ({setAuth}) => {
 
     async function deleteQuestion(id) {
         try {
-          await fetch(`http://localhost:5000/my-questions/delete-question/${id}`, {
+          await fetch(`/my-questions/delete-question/${id}`, {
             method: "DELETE",
             headers: { token: localStorage.token }
           });

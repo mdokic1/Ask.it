@@ -14,7 +14,7 @@ const AddQuestion = ({setAuth}) => {
       myHeaders.append("token", localStorage.token);
 
       const body = { title, question_text };
-      const response = await fetch("http://localhost:5000/my-questions/add-question", {
+      const response = await fetch("/my-questions/add-question", {
         method: "POST",
         headers: myHeaders,
         body: JSON.stringify(body)
