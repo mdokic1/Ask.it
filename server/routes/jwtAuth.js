@@ -8,7 +8,7 @@ const authorization = require("../middleware/authorization");
 //register
 router.post("/register", validInfo, async (req, res) => {
     try {
-      const {firstname, lastname, email, user_password} = req.body; 
+      const {firstname, lastname, email, password} = req.body; 
        
       const user = await pool.query("SELECT * FROM users WHERE firstname = $1 AND lastname = $2 AND email = $3",
       [firstname, lastname, email]);
@@ -22,7 +22,7 @@ router.post("/register", validInfo, async (req, res) => {
       const saltRound = 10;
       const salt = await bcrypt.genSalt(saltRound);
         // const salt = await bcrypt.genSalt(10);
-      const bcryptPassword = await bcrypt.hash(user_password, salt);
+      const bcryptPassword = await bcrypt.hash(password, salt);
 
       const newUser = await pool.query("INSERT INTO users (firstname, lastname, email, user_password, answers) VALUES ($1, $2, $3, $4, 0) RETURNING *",
       [firstname, lastname, email, bcryptPassword]);
@@ -43,7 +43,7 @@ router.post("/register", validInfo, async (req, res) => {
 
 //login
 router.post("/login", validInfo, async (req, res) => {
-    const { email, user_password } = req.body;
+    const { email, password } = req.body;
   
     try {
       const user = await pool.query("SELECT * FROM users WHERE email = $1", [
@@ -55,7 +55,7 @@ router.post("/login", validInfo, async (req, res) => {
       }
   
       const validPassword = await bcrypt.compare(
-        user_password,
+        password,
         user.rows[0].user_password
       );
 
