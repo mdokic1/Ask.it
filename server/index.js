@@ -7,6 +7,9 @@ app.use(express.json());  //req.body
 app.use(cors());
 
 //routes
+app.use("/auth", require("./routes/jwtAuth"));
+
+app.use("/my-questions", require("./routes/questions"));
 
 
 app.listen(5000, () => {
