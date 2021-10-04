@@ -1,0 +1,30 @@
+h4 {
+    font-weight: bold;
+}
+
+.modal{
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.modal-header{
+    background-color: #59a6ee;
+}
+
+.close{
+    font-size: 25px;
+}
+
+.btn-add{
+    width: fit-content;
+    background-color: rgb(108, 245, 108);
+}
+
+.btn{
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.btn-add::before{
+    content: '\f067';
+	font-family: FontAwesome;
+	padding-right: 10px;
+}

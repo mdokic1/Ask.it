@@ -1,0 +1,27 @@
+.fa-thumbs-up{
+    color: #59a6ee;
+}
+
+.fa-thumbs-down{
+    color: #59a6ee;
+}
+
+.btn-info{
+    background-color: #59a6ee;
+}
+
+h2{
+    text-align: center;
+}
+
+.loadMore{
+    width: fit-content;
+    margin-bottom: 3%;
+}
+
+.list-group{
+    overflow-y: scroll;
+    max-height: 500px;
+    width: 70%;
+    margin: auto;
+}
