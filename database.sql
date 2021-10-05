@@ -1,4 +1,4 @@
-CREATE DATABASE ask_it;
+-- CREATE DATABASE ask_it;
 
 CREATE TABLE users(
   user_id uuid DEFAULT uuid_generate_v4(),
@@ -6,7 +6,7 @@ CREATE TABLE users(
   lastname VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   user_password VARCHAR(255) NOT NULL,
-  answers INTEGER NOT NULL
+  answers INTEGER NOT NULL,
   PRIMARY KEY(user_id)
 );
 
@@ -20,7 +20,7 @@ CREATE TABLE questions(
   likes INTEGER NOT NULL,
   dislikes INTEGER NOT NULL,
   user_id UUID ,
-  question_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  question_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (question_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
@@ -32,7 +32,7 @@ CREATE TABLE answers(
   dislikes INTEGER NOT NULL,
   user_id UUID ,
   answer_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  question_id SERIAL
+  question_id SERIAL,
   PRIMARY KEY (answer_id),
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (question_id) REFERENCES questions(question_id)
