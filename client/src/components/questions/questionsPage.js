@@ -14,6 +14,7 @@ const QuestionsPage = ({setAuth}) => {
     const [user, setUser] = useState();
     const [newAnswerForm, setNewAnswerForm] = useState(false);
     const [answer_text, setAnswerText] = useState("");
+    const [selectedID, setSelectedID] = useState(0);
 
     async function getQuestions(){
         try {
@@ -51,6 +52,11 @@ const QuestionsPage = ({setAuth}) => {
     const ispisi = (e, id) =>{
         e.preventDefault();
         console.log(id);
+    }
+
+    const selectID = (e, id) =>{
+        e.preventDefault();
+        setSelectedID(id);
     }
 
     async function getUser(id){
@@ -134,94 +140,81 @@ const QuestionsPage = ({setAuth}) => {
 
     return (
         <Fragment>
-            <br/>
+            {/* <br/>
             <h2>All questions</h2>
-            <br/>
+            <br/> */}
             {/* <button className="btn btn-primary" onClick={e => logout(e)}>Logout</button> */}
             {/* <AddQuestion/> */}
-            <Accordion className="questions">
+            
+            <div className="list-group">
                 {
                     questions.map(q => 
-                        <><Card key={q.question_id}>
-                            <Accordion.Toggle as={Card.Header} eventKey={q.question_id}>
-                                <div>
-                                    <div className="d-flex justify-content-between">
-                                        <h5>{q.title}</h5>
-                                        <div className="ms-2 c-details">
-                                            <small className="mb-0">{getDate(q.question_date)}</small>
-                                        </div>
-                                        {/* , {getDate(q.question_date)} */}
+                        <><div key={q.question_id} className="list-group-item">
+                            <div className="d-flex justify-content-between">
+                                <h5>{q.title}</h5>
+                                <div className="ms-2 c-details">
+                                    <small className="mb-0">{getDate(q.question_date)}</small>
+                                </div>
+                                {/* , {getDate(q.question_date)} */}
+                            </div>
+                            <div className="mt-3">
+                                <p className="heading">{q.question_text}</p>
+                                <div className="mt-3 d-flex justify-content-between">
+                                    <div className="btn-toolbar">
+                                        <button className="dislike" onClick={(e) => addLike(e, q.question_id)}><i className="fa fa-thumbs-up" aria-hidden="true"></i> {q.likes}</button>
+                                        &nbsp; &nbsp;
+                                        <button className="like" onClick={(e) => addDislike(e, q.question_id)}><i className="fa fa-thumbs-down"></i> {q.dislikes}</button>
                                     </div>
-                                    <div className="mt-3">
-                                        <p className="heading">{q.question_text}</p>
-                                        <div className="mt-3 d-flex justify-content-between">
-                                            <div className="btn-toolbar">
-                                            <button className="dislike" onClick={(e) => addLike(e, q.question_id)}><i className="fa fa-thumbs-up" aria-hidden="true"></i> {q.likes}</button>
-                                                &nbsp; &nbsp;
-                                            <button className="like" onClick={(e) => addDislike(e, q.question_id)}><i className="fa fa-thumbs-down"></i> {q.dislikes}</button>
-                                            </div>
-                                            <div className="btn-toolbar">
-                                                <button className="btn btn-info btn-sm viewAnswers" data-toggle="modal" data-target="#forma" onClick={(e) => ispisi(e, q.question_id)}>Add answer</button>
-                                                {/* data-toggle="modal" data-target="#forma" */}
-                                            </div>
-                                            <div className="modal fade" id="forma">
-                                                <div className="modal-dialog">
-                                                    <div className="modal-content">
-                                                        <div className="modal-header">
-                                                            <h4 className="modal-title">Add answer</h4>
-                                                            <button 
-                                                                type="button"
-                                                                className="btn close"
-                                                                data-dismiss="modal"
-                                                                // onClick={() => setDescription(todo.description)}
-                                                            >
-                                                            &times;
-                                                            </button>
-                                                        </div>
-                                                        <div className="modal-body">
-                                                            <input
-                                                                type="text"
-                                                                placeholder="text"
-                                                                className="form-control my-3"
-                                                                value={answer_text}
-                                                                onChange={e => setAnswerText(e.target.value)}
-                                                            />
-                                                        </div>
-                                                        <div className="modal-footer">
-                                                            <button 
-                                                                className="btn btn-primary"
-                                                                data-dismiss="modal"
-                                                                onClick={(e) => addAnswer(e, q.question_id)}
-                                                                >
-                                                                Add
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                                className="btn btn-secondary"
-                                                                data-dismiss="modal"
-                                                                // onClick={() => setDescription(todo.description)}
-                                                                >
-                                                                Close
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div className="btn-toolbar">
+                                        <button className="btn btn-info btn-sm addAnswer" data-toggle="modal" data-target="#forma" onClick={(e) => selectID(e, q.question_id)}>Add answer</button>
+                                        &nbsp; &nbsp;
+                                        <button className="btn btn-info btn-sm viewAnswers" data-toggle="modal" data-target="#forma" onClick={(e) => selectID(e, q.question_id)}>View answers</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal fade" id="forma">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h4 className="modal-title">Add answer</h4>
+                                            <button
+                                                type="button"
+                                                className="btn close"
+                                                data-dismiss="modal"
+                                            >
+                                                &times;
+                                            </button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <input
+                                                type="text"
+                                                placeholder="text"
+                                                className="form-control my-3"
+                                                value={answer_text}
+                                                onChange={e => setAnswerText(e.target.value)} />
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button
+                                                className="btn btn-primary"
+                                                data-dismiss="modal"
+                                                onClick={(e) => addAnswer(e, selectedID)}
+                                            >
+                                                Add
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="btn btn-secondary"
+                                                data-dismiss="modal"
+                                            >
+                                                Close
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            </Accordion.Toggle>
-                        </Card><Accordion.Collapse eventKey={q.question_id}>
-                                <Card.Body>
-                                    This is the first item's accordion body.
-                                </Card.Body>
-                            </Accordion.Collapse></>
+                        </div></>
                     )
                 }
-            </Accordion>
-            <div className="formaDodavanje">
-                {newAnswerForm && <Form.Control type="text" placeholder="Normal text" />}                             
-                {/* onClick={setNewAnswerForm(!newAnswerForm)} */}
             </div>
             
         </Fragment>
