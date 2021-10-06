@@ -23,6 +23,11 @@ app.use("/auth", require("./routes/jwtAuth"));
 
 app.use("/my-questions", require("./routes/questions"));
 
+app.use("/users", require("./routes/users"));
+
+app.use("/answers", require("./routes/answers"));
+
+
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build/index.html"));
 })

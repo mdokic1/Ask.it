@@ -17,10 +17,10 @@ const Navigation = (props) => {
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/login"}>Homepage</Link>
+                        <Link className="nav-link" to={"/home"}>Homepage</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/login"}>Questions page</Link>
+                        <Link className="nav-link" to={"/questions"}>Questions page</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={"/myquestions"}>My questions</Link>
@@ -31,7 +31,7 @@ const Navigation = (props) => {
                         <Link className="nav-link" to={"/login"}>My profile</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/login"} onClick={(e) => logout(e)}>Logout</Link>
+                        <Link className="nav-link" to={"/home"} onClick={(e) => logout(e)}>Logout</Link>
                         {/* ovo ce vracati na homepage */}
                     </li>
                 </ul>
@@ -43,10 +43,10 @@ const Navigation = (props) => {
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/login"}>Homepage</Link>
+                        <Link className="nav-link" to={"/home"}>Homepage</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/login"}>Questions page</Link>
+                        <Link className="nav-link" to={"/questions"}>Questions page</Link>
                     </li>
                 </ul>
                 <ul className="navbar-nav ms-auto">

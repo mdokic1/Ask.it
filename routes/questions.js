@@ -18,6 +18,21 @@ router.get("/", authorization, async (req, res) => {
   }
 });
 
+// get all questions
+router.get("/all-questions", async (req, res) => {
+  try {
+    const questions = await pool.query(
+      "SELECT * FROM questions"
+    );
+
+    res.json(questions.rows);
+    //res.json(req.user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error");
+  }
+});
+
 // add question
 router.post("/add-question", authorization, async (req, res) => {
   try {
@@ -48,6 +63,44 @@ router.delete("/delete-question/:id", authorization, async (req, res) => {
     }
 
     res.json("Question was deleted");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//add like
+router.put("/like/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateQuestion = await pool.query(
+      "UPDATE questions SET likes = likes + 1 WHERE question_id = $1 RETURNING *",
+      [id]
+    );
+
+    // if (updateQuestion.rows.length === 0) {
+    //   return res.json("This todo is not yours");
+    // }
+
+    res.json("Question was updated");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//add dislike
+router.put("/dislike/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateQuestion = await pool.query(
+      "UPDATE questions SET dislikes = dislikes + 1 WHERE question_id = $1 RETURNING *",
+      [id]
+    );
+
+    // if (updateQuestion.rows.length === 0) {
+    //   return res.json("This todo is not yours");
+    // }
+
+    res.json("Question was updated");
   } catch (err) {
     console.error(err.message);
   }
