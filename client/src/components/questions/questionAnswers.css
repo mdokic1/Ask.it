@@ -16,15 +16,16 @@ h2{
 
 .list-group{
     overflow-y: scroll;
-    max-height: 500px;
-    width: 60%;
+    max-height: 600px;
+    width: 70%;
     margin: auto;
+    margin-top: 10px;
 }
 
-.list-question{
+/* .list-question{
     width: 75%;
     margin: auto;
-}
+} */
 
 .like{
     border: none;

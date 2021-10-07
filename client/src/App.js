@@ -33,6 +33,7 @@ function App() {
     } catch (err) {
       console.error(err.message);
     }
+    //setIsAuthenticated(false);
   }
 
   useEffect(() => {    // kada se uradi refresh ne vraca se odmah na login, nego provjerava token

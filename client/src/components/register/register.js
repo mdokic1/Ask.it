@@ -55,6 +55,7 @@ const Register = ({setAuth}) => {
                                 className="form-control" 
                                 value={firstname}
                                 onChange={e => onChange(e)}
+                                required
                             />
                         </div>
                         <div className="form-group my-3">
@@ -66,6 +67,7 @@ const Register = ({setAuth}) => {
                                 className="form-control" 
                                 value={lastname}
                                 onChange={e => onChange(e)}
+                                required
                             />
                         </div>
                         <div className="form-group my-3">
@@ -77,6 +79,7 @@ const Register = ({setAuth}) => {
                                 className="form-control" 
                                 value={email}
                                 onChange={e => onChange(e)}
+                                required
                             />
                         </div>
                         <div className="form-group my-3">
@@ -88,7 +91,10 @@ const Register = ({setAuth}) => {
                                 className="form-control" 
                                 value={password}
                                 onChange={e => onChange(e)}
+                                pattern=".{5,}"
+                                required
                             />
+                            <p className="forgot-password text-right">Password must be at least 5 characters long</p>
                         </div>
                         <div className="form-group my-3">
                             <button className="btn btn-primary btn-block">Register</button>

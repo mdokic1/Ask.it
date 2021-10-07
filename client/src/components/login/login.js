@@ -52,6 +52,7 @@ const Login = ({setAuth}) => {
                                 className="form-control" 
                                 value={email}
                                 onChange={e => onChange(e)}
+                                required
                             />
                         </div>
                         <div className="form-group my-3">
@@ -62,8 +63,11 @@ const Login = ({setAuth}) => {
                                 placeholder="Enter password" 
                                 className="form-control" 
                                 value={password}
+                                pattern=".{5,}"
                                 onChange={e => onChange(e)}
+                                required
                             />
+                        <p className="forgot-password text-right">Password must be at least 5 characters long</p>    
                         </div>
                         <div className="form-group my-3">
                             <button className="btn btn-primary btn-block">Submit</button>

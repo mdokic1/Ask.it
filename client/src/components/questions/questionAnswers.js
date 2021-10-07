@@ -189,7 +189,7 @@ const QuestionAnswers = ({setAuth}) => {
 
     return (
         <Fragment>
-            <br/>
+            {/* <br/>
             <div className="list-group-item list-question">
                 <div className="d-flex justify-content-between">
                     <h5>{question.title}</h5>
@@ -204,7 +204,9 @@ const QuestionAnswers = ({setAuth}) => {
                         &nbsp; &nbsp; <i className="fa fa-thumbs-down"></i> {question.dislikes}</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
+            <br/>
+            <h3>Answers</h3>
             <div className="list-group">
                 {
                     answers.map(a => 

@@ -176,6 +176,9 @@ const QuestionsPage = (props) => {
             <br/> */}
             {/* <button className="btn btn-primary" onClick={e => logout(e)}>Logout</button> */}
             {/* <AddQuestion/> */}
+
+            <br/>
+            <h3>Questions</h3>
             
             <div className="list-group">
                 {
@@ -219,17 +222,22 @@ const QuestionsPage = (props) => {
                                                 &times;
                                             </button>
                                         </div>
+                                       
                                         <div className="modal-body">
+                                            
                                             <input
                                                 type="text"
                                                 placeholder="text"
                                                 className="form-control my-3"
                                                 value={answer_text}
-                                                onChange={e => setAnswerText(e.target.value)} />
+                                                onChange={e => setAnswerText(e.target.value)} required/>
+                                            
                                         </div>
+
                                         <div className="modal-footer">
                                             <button
                                                 className="btn btn-primary"
+                                                type="submit"
                                                 data-dismiss="modal"
                                                 onClick={(e) => addAnswer(e, selectedID)}
                                             >
@@ -243,6 +251,7 @@ const QuestionsPage = (props) => {
                                                 Close
                                             </button>
                                         </div>
+                                        
                                     </div>
                                 </div>
                         </div></>
