@@ -1,0 +1,13 @@
+.left-form{
+    float: left;
+    width: 400px;
+}
+
+.right-form{
+    float: right;
+    width: 400px;
+}
+
+.forms{
+    width: 1000px;
+}

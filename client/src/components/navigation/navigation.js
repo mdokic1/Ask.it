@@ -29,7 +29,7 @@ const Navigation = (props) => {
                 </ul>
                 <ul className="navbar-nav ms-auto">
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/login"}>My profile</Link>
+                        <Link className="nav-link" to={"/profile"}>My profile</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={"/home"} onClick={(e) => logout(e)}>Logout</Link>

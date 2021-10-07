@@ -10,6 +10,7 @@ import Navigation from "./components/navigation/navigation"
 import QuestionsPage from "./components/questions/questionsPage"
 import Homepage from "./components/homepage/homepage"
 import QuestionAnswers from './components/questions/questionAnswers';
+import MyProfile from './components/profile/myProfile';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -68,6 +69,7 @@ function App() {
             />
             {/* <Route path="/questions" component={QuestionsPage}/> */}
             <Route path="/home" component={Homepage}/>
+            <Route path="/profile" component={MyProfile}/>
           </Switch>
         </div>  
       </Router>
