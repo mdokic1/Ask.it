@@ -10,7 +10,7 @@ CREATE TABLE users(
   PRIMARY KEY(user_id)
 );
 
-INSERT INTO users (firstname, lastname, email, user_password, answers) VALUES ('milica', 'djokic', 'milica16.djokic@gmail.com', 'milica16', 0);
+-- INSERT INTO users (firstname, lastname, email, user_password, answers) VALUES ('milica', 'djokic', 'milica16.djokic@gmail.com', 'milica16', 0);
 
 
 CREATE TABLE questions(

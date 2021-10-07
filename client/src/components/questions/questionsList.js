@@ -61,7 +61,7 @@ const QuestionsList = ({setAuth}) => {
     return (
         <Fragment>
             <br/>
-            <h3>My questions</h3>
+            <h3>My Questions</h3>
             <br/>
             {/* <button className="btn btn-primary" onClick={e => logout(e)}>Logout</button> */}
             <AddQuestion/>

@@ -64,6 +64,7 @@ const Login = ({setAuth}) => {
                                 className="form-control" 
                                 value={password}
                                 pattern=".{5,}"
+                                title="minimum 5 characters"
                                 onChange={e => onChange(e)}
                                 required
                             />

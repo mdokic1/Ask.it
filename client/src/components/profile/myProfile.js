@@ -1,55 +1,42 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import './myProfile.css';
 import ChangeUserInfo from './changeUserInfo';
 import ChangePassword from "./changePassword";
 
 const MyProfile = ({setAuth}) => {
-    const [inputs, setInputs] = useState({
-        email: "",
-        password: ""
-    })
+    const [loggedIn, setLoggedIn] = useState([]);
 
-    const{email, password} = inputs;
-
-    const onChange = (e) => {
-        setInputs({...inputs, [e.target.name]:e.target.value})
-    }
-
-    const onSubmitForm = async(e) => {
-        e.preventDefault();   // da se ne refresha stranica kada se klikne login
-
+    async function findLoggedUser(){
         try {
-            const body = {email, password}
-
-            const response = await fetch(
-                "/auth/login", {
-                method: "POST",
-                headers: {"Content-Type" : "application/json"},
-                body: JSON.stringify(body)
+            const response = await fetch(`http://localhost:5000/users/user-logged`, {
+                method: "GET",
+                headers: {token: localStorage.token}
             });
-
             const parseRes = await response.json();
- 
-            localStorage.setItem("token", parseRes.token);
-            setAuth(true);
-
+            setLoggedIn(parseRes);
+            console.log(parseRes);
         } catch (err) {
             console.error(err.message);
         }
     }
 
+    useEffect(() => {
+        findLoggedUser();
+    }, [])
+    
     return (
         <Fragment>
             <div className="container">
                 <div className="inner forms">
-                    <h3>Welcome</h3>
-                    <form className="left-form" onSubmit={onSubmitForm}>
-                       <ChangeUserInfo/>
-                    </form>
-                    <form className="right-form">
-                        <ChangePassword/> 
-                    </form>
+                    <h3>Welcome {loggedIn.firstname} {loggedIn.lastname}!</h3>
+                    <br/>
+                    <div className="left-form">
+                       <ChangeUserInfo id={loggedIn.user_id} name={loggedIn.firstname} surname={loggedIn.lastname} email={loggedIn.email}/>
+                    </div>
+                    <div className="right-form">
+                        <ChangePassword id={loggedIn.user_id} user_password={loggedIn.user_password}/> 
+                    </div>
                 </div>     
             </div>
           

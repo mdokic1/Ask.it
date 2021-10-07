@@ -69,7 +69,7 @@ router.put("/dislike/:id", async (req, res) => {
     //   return res.json("This todo is not yours");
     // }
 
-    res.json("answer was updated");
+    res.json("Answer was updated");
   } catch (err) {
     console.error(err.message);
   }

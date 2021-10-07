@@ -92,6 +92,7 @@ const Register = ({setAuth}) => {
                                 value={password}
                                 onChange={e => onChange(e)}
                                 pattern=".{5,}"
+                                title="minimum 5 characters"
                                 required
                             />
                             <p className="forgot-password text-right">Password must be at least 5 characters long</p>

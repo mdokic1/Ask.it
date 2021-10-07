@@ -170,6 +170,7 @@ const QuestionsPage = (props) => {
     }, [])
 
     return (
+        // key={q.question_id}
         <Fragment>
             {/* <br/>
             <h2>All questions</h2>
@@ -254,7 +255,8 @@ const QuestionsPage = (props) => {
                                         
                                     </div>
                                 </div>
-                        </div></>
+                        </div>
+                        </>
                     )
                 }
             </div>
