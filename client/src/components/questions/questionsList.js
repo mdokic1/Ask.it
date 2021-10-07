@@ -35,7 +35,7 @@ const QuestionsList = ({setAuth}) => {
         } catch (err) {
           console.error(err.message);
         }
-      }
+    }
 
     const logout = (e) => {
         e.preventDefault();

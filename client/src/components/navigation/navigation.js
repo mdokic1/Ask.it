@@ -10,6 +10,7 @@ const Navigation = (props) => {
         e.preventDefault();
         localStorage.removeItem("token");
         props.setAuth(false);
+        window.location = "/home";
     }
 
     if(props.isAuthenticated){

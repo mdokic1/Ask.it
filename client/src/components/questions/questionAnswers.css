@@ -1,0 +1,48 @@
+.fa-thumbs-up{
+    color: rgb(55, 170, 55);
+}
+
+.fa-thumbs-down{
+    color: rgb(253, 32, 32);
+}
+
+.btn-info{
+    background-color: #59a6ee;
+}
+
+h2{
+    text-align: center;
+}
+
+.list-group{
+    overflow-y: scroll;
+    max-height: 500px;
+    width: 60%;
+    margin: auto;
+}
+
+.list-question{
+    width: 75%;
+    margin: auto;
+}
+
+.like{
+    border: none;
+    background-color: white
+}
+
+.dislike{
+    border: none;
+    background-color: white;
+}
+
+/* .accordion{
+    margin-top: 80px;
+} */
+
+/* .accordion {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+} */

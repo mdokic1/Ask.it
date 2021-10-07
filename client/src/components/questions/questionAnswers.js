@@ -1,6 +1,7 @@
 import React, {Fragment, useState, useEffect} from "react";
 import AddQuestion from "./addQuestion";
-import './questionsPage.css';
+import './questionAnswers.css';
+import {useParams, withRouter} from "react-router-dom";
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Form from "react-bootstrap/Form";
@@ -8,13 +9,16 @@ import AddAnswer from "../answers/addAnswer";
 import { parse } from "dotenv";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
-const QuestionsPage = (props) => {
-
-    const [questions, setQuestions] = useState([]);  // prazan niz
-    const [name, setName] = useState();
+const QuestionAnswers = ({setAuth}) => {
+    const {id} = useParams()
+    //logged();
+    //console.log("IDDD" + id);
+    const [answers, setAnswers] = useState([]);  // prazan niz
+    const [name, setName] = useState("");
+    const [newAnswerForm, setNewAnswerForm] = useState(false);
     const [answer_text, setAnswerText] = useState("");
     const [selectedID, setSelectedID] = useState(0);
-    const [showButtonAdd, setShowButtonAdd] = useState(false);
+    const [question, setQuestion] = useState("");
     const [loggedIn, setLoggedIn] = useState([]);
 
     async function findLoggedUser(){
@@ -31,34 +35,57 @@ const QuestionsPage = (props) => {
         }
     }
 
-    
-    //else setShowButtonAdd(false);
-
-    async function getQuestions(){
+    async function findQuestion(id){
         try {
-            const response = await fetch("http://localhost:5000/my-questions/all-questions", {
+            const response = await fetch(`http://localhost:5000/my-questions/question/${id}`, {
+                method: "GET",
+                headers: {token: localStorage.token}
+            });
+            const parseRes = await response.json();
+            setQuestion(parseRes);
+            console.log(parseRes);
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+    
+
+    async function getAnswers(){
+        try {
+            const response = await fetch(`http://localhost:5000/answers/all-answers/${id}`, {
                 method: "GET",
                 headers: {token: localStorage.token}
             });
 
             const parseRes = await response.json();
             //setName(parseRes.firstname);
-            parseRes.sort((a,b) => (a.question_date > b.question_date) ? -1 : ((b.question_date > a.question_date) ? 1 : 0))
-            setQuestions(parseRes);
+            parseRes.sort((a,b) => (a.answer_date > b.answer_date) ? -1 : ((b.answer_date > a.answer_date) ? 1 : 0))
+            
+            setAnswers(parseRes);
+
             findLoggedUser();
-            console.log(parseRes);
+
+            findQuestion(id);
+
+
         } catch (err) {
             console.error(err.message);
         }
     }
 
-    // const logout = (e) => {
-    //     e.preventDefault();
-    //     localStorage.removeItem("token");
-    //     setAuth(false);
-    // }
-    const checkID = (id) => {
-        return id === loggedIn.user_id;
+    async function deleteAnswer(e, id) {
+        e.preventDefault();
+
+        try {
+          await fetch(`http://localhost:5000/answers/delete/${id}`, {
+            method: "DELETE",
+            headers: { token: localStorage.token }
+          });
+    
+          setAnswers(answers.filter(answer => answer.answer_id !== id));
+        } catch (err) {
+          console.error(err.message);
+        }
     }
 
     const getDate = (date) => {
@@ -66,9 +93,10 @@ const QuestionsPage = (props) => {
         return dat.toDateString() + ", " + (dat.getHours()<10?'0':'') + dat.getHours() + ":" + (dat.getMinutes()<10?'0':'') + dat.getMinutes();
     }
 
-    const selectID = (e, id) =>{
+    const selectID = (e, id, answerText) =>{
         e.preventDefault();
         setSelectedID(id);
+        setAnswerText(answerText);
     }
 
     async function getUser(id){
@@ -92,44 +120,43 @@ const QuestionsPage = (props) => {
 
     const author = (id) => {
         getUser(id);
-        return name.firstname;
+        //return name.firstname;
         //return user.firstname + " " + user.lastname;
     }
 
-    async function addLike(e, question){
+    async function addLike(e, answer){
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/my-questions/like/${question}`, {
+            const response = await fetch(`http://localhost:5000/answers/like/${answer}`, {
             method: "PUT",
             headers: {token: localStorage.token}
 
         });
 
-        getQuestions();
+        getAnswers();
 
         } catch (err) {
             console.error(err.message);
         }
     }
 
-    async function addDislike(e, question){
+    async function addDislike(e, answer){
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/my-questions/dislike/${question}`, {
+            const response = await fetch(`http://localhost:5000/answers/dislike/${answer}`, {
             method: "PUT",
             headers: {token: localStorage.token}
 
         });
 
-        getQuestions();
+        getAnswers();
 
         } catch (err) {
             console.error(err.message);
         }
     }
 
-    async function addAnswer(e, question){
-        //console.log(question);
+    async function editAnswer(e, answerID){
         e.preventDefault();
         try {
             const myHeaders = new Headers();
@@ -138,79 +165,81 @@ const QuestionsPage = (props) => {
             myHeaders.append("token", localStorage.token);
 
             const body = { answer_text };
-            const response = await fetch(`http://localhost:5000/answers/add-answer/${question}`, {
-                method: "POST",
+            const response = await fetch(`http://localhost:5000/answers/edit/${answerID}`, {
+                method: "PUT",
                 headers: myHeaders,
                 body: JSON.stringify(body)
             });
 
-            const parseResponse = await response.json();
-
-            console.log(parseResponse);
-
-            //   setQuestionsChange(true);
-            //setTitle("");
+            getAnswers();
             setAnswerText("");
+
         } catch (err) {
             console.error(err.message);
         }
     }
 
-    const viewAnswers = (e, id) => {
-        e.preventDefault();
-        selectID(e, id);
-        //return name.firstname;
-        window.location = `/question-answers/${id}`;
-        //return user.firstname + " " + user.lastname;
+    const checkID = (id) => {
+        return id === loggedIn.user_id;
     }
 
     useEffect(() => {
-        getQuestions();
-        if(props.isAuthenticated) setShowButtonAdd(true);
+        getAnswers();
     }, [])
 
     return (
         <Fragment>
-            {/* <br/>
-            <h2>All questions</h2>
-            <br/> */}
-            {/* <button className="btn btn-primary" onClick={e => logout(e)}>Logout</button> */}
-            {/* <AddQuestion/> */}
-            
+            <br/>
+            <div className="list-group-item list-question">
+                <div className="d-flex justify-content-between">
+                    <h5>{question.title}</h5>
+                    <div className="ms-2 c-details">
+                        <small className="mb-0">{getDate(question.question_date)}</small>
+                    </div>
+                </div>
+                <div className="mt-3">
+                    <p className="heading">{question.question_text}</p>
+                    <div className="mt-3 d-flex justify-content-between">
+                        <p><i className="fa fa-thumbs-up" aria-hidden="true"></i> {question.likes} 
+                        &nbsp; &nbsp; <i className="fa fa-thumbs-down"></i> {question.dislikes}</p>
+                    </div>
+                </div>
+            </div>
             <div className="list-group">
                 {
-                    questions.map(q => 
-                        <><div key={q.question_id} className="list-group-item">
+                    answers.map(a => 
+                        <><div key={a.answer_id} className="list-group-item">
                             <div className="d-flex justify-content-between">
-                                <h5>{q.title}</h5>
+                                <h5></h5>
                                 <div className="ms-2 c-details">
-                                    {/* <small>{author(q.user_id)}</small> */}
+                                    {/* {author(a.user_id)}
+                                    <small>{name.firstname}</small> */}
                                     {/* <button onClick={(e) => getUser(e, q.user_id)}>Korisnik</button> */}
-                                    <small className="mb-0">{getDate(q.question_date)}</small>
+                                    <small className="mb-0">{getDate(a.answer_date)}</small>
                                 </div>
                                 {/* , {getDate(q.question_date)} */}
                             </div>
                             <div className="mt-3">
-                                <p className="heading">{q.question_text}</p>
+                                <p className="heading">{a.answer_text}</p>
                                 <div className="mt-3 d-flex justify-content-between">
                                     <div className="btn-toolbar">
-                                        <button className="dislike" onClick={(e) => addLike(e, q.question_id)}><i className="fa fa-thumbs-up" aria-hidden="true"></i> {q.likes}</button>
+                                        <button className="dislike" onClick={(e) => addLike(e, a.answer_id)}><i className="fa fa-thumbs-up" aria-hidden="true"></i> {a.likes}</button>
                                         &nbsp; &nbsp;
-                                        <button className="like" onClick={(e) => addDislike(e, q.question_id)}><i className="fa fa-thumbs-down"></i> {q.dislikes}</button>
+                                        <button className="like" onClick={(e) => addDislike(e, a.answer_id)}><i className="fa fa-thumbs-down"></i> {a.dislikes}</button>
                                     </div>
-                                    <div className="btn-toolbar">
-                                        {showButtonAdd && !checkID(q.user_id) && <button className="btn btn-info btn-sm addAnswer" data-toggle="modal" data-target="#addForm" onClick={(e) => selectID(e, q.question_id)}>Add answer</button>}
+                                    {checkID(a.user_id) ? <div className="btn-toolbar">
+                                        <button className="btn btn-info btn-sm editAnswer" data-toggle="modal" data-target="#editForm" onClick={(e) => selectID(e, a.answer_id, a.answer_text)}>Edit</button>
                                         &nbsp; &nbsp;
-                                        <button className="btn btn-info btn-sm viewAnswers" onClick={(e) => viewAnswers(e, q.question_id)}>View answers</button>
-                                    </div>
+                                        <button className="btn btn-danger btn-sm" onClick={(e) => deleteAnswer(e, a.answer_id)}>Delete</button>
+                                    </div> : <div></div>}
                                 </div>
                             </div>
                         </div>
-                        <div className="modal fade" id="addForm">
+                        <div className="modal fade" id="editForm">
                                 <div className="modal-dialog">
                                     <div className="modal-content">
                                         <div className="modal-header">
-                                            <h4 className="modal-title">Add answer</h4>
+                                            <h4 className="modal-title">Edit answer</h4>
                                             <button
                                                 type="button"
                                                 className="btn close"
@@ -225,15 +254,16 @@ const QuestionsPage = (props) => {
                                                 placeholder="text"
                                                 className="form-control my-3"
                                                 value={answer_text}
+                                                
                                                 onChange={e => setAnswerText(e.target.value)} />
                                         </div>
                                         <div className="modal-footer">
                                             <button
                                                 className="btn btn-primary"
                                                 data-dismiss="modal"
-                                                onClick={(e) => addAnswer(e, selectedID)}
+                                                onClick={(e) => editAnswer(e, selectedID)}
                                             >
-                                                Add
+                                                Confirm
                                             </button>
                                             <button
                                                 type="button"
@@ -254,4 +284,4 @@ const QuestionsPage = (props) => {
     )
 }
 
-export default QuestionsPage; 
+export default QuestionAnswers; 

@@ -9,6 +9,7 @@ import QuestionsList from "./components/questions/questionsList"
 import Navigation from "./components/navigation/navigation"
 import QuestionsPage from "./components/questions/questionsPage"
 import Homepage from "./components/homepage/homepage"
+import QuestionAnswers from './components/questions/questionAnswers';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,21 +45,28 @@ function App() {
         <Navigation {...{isAuthenticated}} setAuth = {setAuth} />
         <div className="container">
           <Switch>
-          <Route exact path="/" component={Homepage} />
-          <Route path="/login" render={
-            props => !isAuthenticated ? <Login {... props} setAuth = {setAuth} /> : <Redirect to="/myquestions" />}  // ako je autentikacija uspjela ide na myquestions, a ako nije onda ide login
-          />
-          <Route path="/register" render={
-            props => !isAuthenticated ? <Register {... props} setAuth = {setAuth} /> : <Redirect to="/myquestions" />}
-          />
-          <Route path="/myquestions" render={
-            props => isAuthenticated ? <QuestionsList {... props} setAuth = {setAuth} /> : <Redirect to="/login" />}
-          />
-          {/* <Route exact path="/questions" render={
-            props => isAuthenticated ? <QuestionsPage {... props} setAuth = {setAuth} /> : <Redirect to="/home" />}
-          /> */}
-          <Route path="/questions" component={QuestionsPage}/>
-          <Route path="/home" component={Homepage}/>
+            <Route exact path="/" component={Homepage} />
+            <Route path="/login" render={
+              props => !isAuthenticated ? <Login {... props} setAuth = {setAuth} /> : <Redirect to="/myquestions" />}  // ako je autentikacija uspjela ide na myquestions, a ako nije onda ide login
+            />
+            <Route path="/register" render={
+              props => !isAuthenticated ? <Register {... props} setAuth = {setAuth} /> : <Redirect to="/myquestions" />}
+            />
+            <Route path="/myquestions" render={
+              props => isAuthenticated ? <QuestionsList {... props} setAuth = {setAuth} /> : <Redirect to="/login" />}
+            />
+            {/* <Route exact path="/questions" render={
+              props => isAuthenticated ? <QuestionsPage {... props} setAuth = {setAuth} /> : <Redirect to="/home" />}
+            /> */}
+            <Route path="/question-answers/:id" render={
+              props => <QuestionAnswers {... props} setAuth = {setAuth} />}
+            />
+            {/* <Route path="/question-answers/:id" component={QuestionAnswers}/>  */}
+            <Route path="/questions" render={
+              props => <QuestionsPage {... props} {...{isAuthenticated}} setAuth = {setAuth} />}
+            />
+            {/* <Route path="/questions" component={QuestionsPage}/> */}
+            <Route path="/home" component={Homepage}/>
           </Switch>
         </div>  
       </Router>

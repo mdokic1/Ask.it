@@ -33,6 +33,23 @@ router.get("/all-questions", async (req, res) => {
   }
 });
 
+//get question by id
+router.get("/question/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const question = await pool.query(
+      "SELECT * FROM questions WHERE question_id=$1",
+      [id]
+    );
+
+    res.json(question.rows[0]);
+    //res.json(req.user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error");
+  }
+});
+
 // add question
 router.post("/add-question", authorization, async (req, res) => {
   try {
