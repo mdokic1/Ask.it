@@ -14,9 +14,9 @@ h2{
     text-align: center;
 }
 
-.list-group{
-    /* overflow-y: scroll;
-    max-height: 600px; */
+.answers-list{
+    overflow-y: scroll;
+    max-height: 500px;
     width: 70%;
     margin: auto;
     margin-top: 10px;

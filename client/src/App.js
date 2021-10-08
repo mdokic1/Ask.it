@@ -60,7 +60,7 @@ function App() {
             {/* <Route exact path="/questions" render={
               props => isAuthenticated ? <QuestionsPage {... props} setAuth = {setAuth} /> : <Redirect to="/home" />}
             /> */}
-            <Route path="/question-answers/:id" render={
+            <Route path="/question-answers/:id/:check" render={
               props => <QuestionAnswers {... props} setAuth = {setAuth} />}
             />
             {/* <Route path="/question-answers/:id" component={QuestionAnswers}/>  */}

@@ -9,10 +9,11 @@ import AddAnswer from "../answers/addAnswer";
 import { parse } from "dotenv";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
-const QuestionAnswers = ({setAuth}) => {
-    const {id} = useParams()
+const QuestionAnswers = (props) => {
+    const {id, check} = useParams()
     //logged();
-    //console.log("IDDD" + id);
+    console.log("IDDD" + id);
+    console.log("check " + check);
     const [answers, setAnswers] = useState([]);  // prazan niz
     const [name, setName] = useState("");
     const [newAnswerForm, setNewAnswerForm] = useState(false);
@@ -22,6 +23,7 @@ const QuestionAnswers = ({setAuth}) => {
     const [loggedIn, setLoggedIn] = useState([]);
 
     async function findLoggedUser(){
+       
         try {
             const response = await fetch(`http://localhost:5000/users/user-logged`, {
                 method: "GET",
@@ -33,6 +35,7 @@ const QuestionAnswers = ({setAuth}) => {
         } catch (err) {
             console.error(err.message);
         }
+    
     }
 
     async function findQuestion(id){
@@ -63,7 +66,10 @@ const QuestionAnswers = ({setAuth}) => {
             
             setAnswers(parseRes);
 
-            findLoggedUser();
+            if(check == "true"){
+                console.log("Usao nekako");
+                findLoggedUser();
+            }
 
             findQuestion(id);
 
@@ -180,7 +186,10 @@ const QuestionAnswers = ({setAuth}) => {
     }
 
     const checkID = (id) => {
-        return id === loggedIn.user_id;
+        if(check){
+            return id === loggedIn.user_id;
+        }
+        return false;
     }
 
     useEffect(() => {
@@ -210,7 +219,7 @@ const QuestionAnswers = ({setAuth}) => {
             <div className="list-group answers-list">
                 {
                     answers.map(a => 
-                        <><div key={a.answer_id} className="list-group-item">
+                        <div key={a.answer_id} className="list-group-item">
                             <div className="d-flex justify-content-between">
                                 <h5></h5>
                                 <div className="ms-2 c-details">
@@ -236,8 +245,7 @@ const QuestionAnswers = ({setAuth}) => {
                                     </div> : <div></div>}
                                 </div>
                             </div>
-                        </div>
-                        <div className="modal fade" id="editForm">
+                            <div className="modal fade" id="editForm">
                                 <div className="modal-dialog">
                                     <div className="modal-content">
                                         <div className="modal-header">
@@ -277,7 +285,8 @@ const QuestionAnswers = ({setAuth}) => {
                                         </div>
                                     </div>
                                 </div>
-                        </div></>
+                        </div>
+                    </div>
                     )
                 }
             </div>

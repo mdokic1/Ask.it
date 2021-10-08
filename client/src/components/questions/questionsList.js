@@ -37,11 +37,11 @@ const QuestionsList = ({setAuth}) => {
         }
     }
 
-    const logout = (e) => {
-        e.preventDefault();
-        localStorage.removeItem("token");
-        setAuth(false);
-    }
+    // const logout = (e) => {
+    //     e.preventDefault();
+    //     localStorage.removeItem("token");
+    //     setAuth(false);
+    // }
 
     const getDate = (date) => {
         var dat = new Date(date);

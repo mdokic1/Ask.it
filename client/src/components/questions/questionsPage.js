@@ -6,9 +6,12 @@ import Card from 'react-bootstrap/Card';
 import Form from "react-bootstrap/Form";
 import AddAnswer from "../answers/addAnswer";
 import { parse } from "dotenv";
+import { Redirect } from "react-router";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const QuestionsPage = (props) => {
+
+    console.log("Ulogovaan " + props.isAuthenticated);
 
     const [questions, setQuestions] = useState([]);  // prazan niz
     const [name, setName] = useState();
@@ -16,6 +19,7 @@ const QuestionsPage = (props) => {
     const [selectedID, setSelectedID] = useState(0);
     const [showButtonAdd, setShowButtonAdd] = useState(false);
     const [loggedIn, setLoggedIn] = useState([]);
+    //const [redirect, setRedirect] = useState(false)
 
     async function findLoggedUser(){
         try {
@@ -45,7 +49,11 @@ const QuestionsPage = (props) => {
             //setName(parseRes.firstname);
             parseRes.sort((a,b) => (a.question_date > b.question_date) ? -1 : ((b.question_date > a.question_date) ? 1 : 0))
             setQuestions(parseRes);
-            findLoggedUser();
+            if(props.isAuthenticated){
+                console.log("Usaoo");
+                findLoggedUser();
+            }
+            
             console.log(parseRes);
         } catch (err) {
             console.error(err.message);
@@ -58,7 +66,10 @@ const QuestionsPage = (props) => {
     //     setAuth(false);
     // }
     const checkID = (id) => {
-        return id === loggedIn.user_id;
+        if(props.isAuthenticated){
+            return id === loggedIn.user_id;
+        }
+        return false;
     }
 
     const getDate = (date) => {
@@ -177,8 +188,12 @@ const QuestionsPage = (props) => {
     const viewAnswers = (e, id) => {
         e.preventDefault();
         selectID(e, id);
+        let check = props.isAuthenticated;
+        //console.log("CHEECK ");
         //return name.firstname;
-        window.location = `/question-answers/${id}`;
+        window.location = `/question-answers/${id}/${check}`;
+        //setRedirect(true);
+        //return <Redirect to="/question-answers" id={id} check={check} />
         //return user.firstname + " " + user.lastname;
     }
 
@@ -186,6 +201,10 @@ const QuestionsPage = (props) => {
         getQuestions();
         if(props.isAuthenticated) setShowButtonAdd(true);
     }, [])
+
+    // if(redirect){
+    //     return <Redirect to="/question-answers" id={selectedID} check={props.isAuthenticated} />
+    // }
 
     return (
         // key={q.question_id}
@@ -200,8 +219,8 @@ const QuestionsPage = (props) => {
             <h3>Questions</h3>
             <div className="list-group scroll">
                 {
-                    questions.map(q => 
-                        <><div key={q.question_id} className="list-group-item">
+                      questions.map(q =>  
+                        <div key={q.question_id} className="list-group-item">
                             <div className="d-flex justify-content-between">
                                 <h5>{q.title}</h5>
                                 <div className="ms-2 c-details">
@@ -220,14 +239,14 @@ const QuestionsPage = (props) => {
                                         <button className="like" onClick={(e) => addDislike(e, q.question_id)}><i className="fa fa-thumbs-down"></i> {q.dislikes}</button>
                                     </div>
                                     <div className="btn-toolbar">
+                                    {/* showButtonAdd && !checkID(q.user_id) &&  */}
                                         {showButtonAdd && !checkID(q.user_id) && <button className="btn btn-info btn-sm addAnswer" data-toggle="modal" data-target="#addForm" onClick={(e) => selectID(e, q.question_id)}>Add answer</button>}
                                         &nbsp; &nbsp;
                                         <button className="btn btn-info btn-sm viewAnswers" onClick={(e) => viewAnswers(e, q.question_id)}>View answers</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="modal fade" id="addForm">
+                            <div className="modal fade" id="addForm">
                                 <div className="modal-dialog">
                                     <div className="modal-content">
                                         <div className="modal-header">
@@ -240,16 +259,16 @@ const QuestionsPage = (props) => {
                                                 &times;
                                             </button>
                                         </div>
-                                       
+
                                         <div className="modal-body">
-                                            
+
                                             <input
                                                 type="text"
                                                 placeholder="text"
                                                 className="form-control my-3"
                                                 value={answer_text}
-                                                onChange={e => setAnswerText(e.target.value)} required/>
-                                            
+                                                onChange={e => setAnswerText(e.target.value)} required />
+
                                         </div>
 
                                         <div className="modal-footer">
@@ -269,11 +288,12 @@ const QuestionsPage = (props) => {
                                                 Close
                                             </button>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
+                            </div>
                         </div>
-                        </>
+                        
                     )
                 }
             </div>

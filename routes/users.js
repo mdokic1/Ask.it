@@ -41,6 +41,7 @@ router.get("/user-logged", authorization, async (req, res) => {
     [req.user]
     );
 
+    console.log("korisnik " + req.user);
     res.json(user.rows[0]);
   } catch (err) {
     console.error(err.message);
