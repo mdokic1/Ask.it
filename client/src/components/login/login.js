@@ -28,7 +28,6 @@ const Login = ({setAuth}) => {
             });
 
             const parseRes = await response.json();
-            console.log("Rez logina " + parseRes);
 
             if(parseRes == "Password or email is incorrect"){
                 alert("Password or email is incorrect");
@@ -79,7 +78,7 @@ const Login = ({setAuth}) => {
                         <p className="forgot-password text-right">Password must be at least 5 characters long</p>    
                         </div>
                         <div className="form-group my-3">
-                            <button className="btn btn-primary btn-block">Submit</button>
+                            <button className="btn btn-primary btn-block">Login</button>
                         </div>
                         <p className="forgot-password text-right">
                             Don't have an account? <Link to="/register">Register here</Link>

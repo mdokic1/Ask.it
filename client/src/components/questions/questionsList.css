@@ -22,7 +22,6 @@ h2{
 .scroll{
     overflow-y: scroll;
     max-height: 500px;
-    /* padding-top: 300px; */
     width: 70%;
     margin: auto;
 }

@@ -5,27 +5,8 @@ const ChangeUserInfo = (props) => {
     const [name, setName] = useState(props.name);
     const [surname, setSurname] = useState(props.surname);
     const [email, setEmail] = useState(props.email);
-    //const [loggedIn, setLoggedIn] = useState([]);
-
-    // async function findLoggedUser(){
-    //     try {
-    //         const response = await fetch(`/users/user-logged`, {
-    //             method: "GET",
-    //             headers: {token: localStorage.token}
-    //         });
-    //         const parseRes = await response.json();
-    //         setLoggedIn(parseRes);
-    //         setName(loggedIn.firstname);
-    //         setSurname(loggedIn.lastname);
-    //         setEmail(loggedIn.email);
-    //         console.log(parseRes);
-    //     } catch (err) {
-    //         console.error(err.message);
-    //     }
-    // }
 
     useEffect(() => {
-        //findLoggedUser();
         setName(props.name)
         setSurname(props.surname)
         setEmail(props.email)
@@ -46,13 +27,8 @@ const ChangeUserInfo = (props) => {
                 body: JSON.stringify(body)
             });
 
-            // setName("");
-            // setSurname("");
-            // setEmail("");
 
             window.location.reload(false);
-            //getAnswers();
-            //const parseRes = await response.json();
 
         } catch (err) {
             console.error(err.message);
@@ -71,7 +47,6 @@ const ChangeUserInfo = (props) => {
                         placeholder="Enter name" 
                         className="form-control" 
                         defaultValue={name}
-                        // pattern=".{5,}"
                         onChange={e => setName(e.target.value)}
                         required
                     />   
@@ -84,7 +59,6 @@ const ChangeUserInfo = (props) => {
                         placeholder="Enter lastname" 
                         className="form-control" 
                         defaultValue={surname}
-                        // pattern=".{5,}"
                         onChange={e => setSurname(e.target.value)}
                         required
                     />    

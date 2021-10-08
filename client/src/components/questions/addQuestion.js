@@ -24,7 +24,6 @@ const AddQuestion = ({setAuth}) => {
 
       console.log(parseResponse);
 
-    //   setQuestionsChange(true);
        setTitle("");
        setQuestionText("");
        window.location = "/myquestions";
@@ -45,7 +44,6 @@ const AddQuestion = ({setAuth}) => {
           Add question
         </button>
       </div>
-      {/* <br></br> */}
       <div className="modal fade" id="forma">
             <div className="modal-dialog">
                 <div className="modal-content">
@@ -55,7 +53,6 @@ const AddQuestion = ({setAuth}) => {
                             type="button"
                             className="btn close"
                             data-dismiss="modal"
-                            // onClick={() => setDescription(todo.description)}
                         >
                         &times;
                         </button>
@@ -88,7 +85,6 @@ const AddQuestion = ({setAuth}) => {
                             type="button"
                             className="btn btn-secondary"
                             data-dismiss="modal"
-                            // onClick={() => setDescription(todo.description)}
                             >
                             Close
                         </button>

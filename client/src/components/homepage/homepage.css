@@ -3,11 +3,6 @@
     font-weight: bold;
 }
 
-/* .wrapper{
-    width: 100%;
-    margin: auto;
-} */
-
 h4, h6{
     text-align: center;
 }
@@ -15,7 +10,6 @@ h4, h6{
 .home-scroll{
     overflow-y: scroll;
     max-height: 500px;
-    /* padding-top: 300px; */
     margin: auto;
 }
 

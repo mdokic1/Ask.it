@@ -1,13 +1,6 @@
 import React, {Fragment, useState, useEffect} from "react";
-import AddQuestion from "./addQuestion";
 import './questionsPage.css';
-import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
-import Form from "react-bootstrap/Form";
-import AddAnswer from "../answers/addAnswer";
-import { parse } from "dotenv";
-import { Redirect } from "react-router";
-// import "bootstrap/dist/css/bootstrap.min.css";
+
 
 const QuestionsPage = (props) => {
 
@@ -19,7 +12,6 @@ const QuestionsPage = (props) => {
     const [selectedID, setSelectedID] = useState(0);
     const [showButtonAdd, setShowButtonAdd] = useState(false);
     const [loggedIn, setLoggedIn] = useState([]);
-    //const [redirect, setRedirect] = useState(false)
 
     async function findLoggedUser(){
         try {
@@ -35,9 +27,6 @@ const QuestionsPage = (props) => {
         }
     }
 
-    
-    //else setShowButtonAdd(false);
-
     async function getQuestions(){
         try {
             const response = await fetch("/my-questions/all-questions", {
@@ -46,7 +35,6 @@ const QuestionsPage = (props) => {
             });
 
             const parseRes = await response.json();
-            //setName(parseRes.firstname);
             parseRes.sort((a,b) => (a.question_date > b.question_date) ? -1 : ((b.question_date > a.question_date) ? 1 : 0))
             setQuestions(parseRes);
             if(props.isAuthenticated){
@@ -60,11 +48,6 @@ const QuestionsPage = (props) => {
         }
     }
 
-    // const logout = (e) => {
-    //     e.preventDefault();
-    //     localStorage.removeItem("token");
-    //     setAuth(false);
-    // }
     const checkID = (id) => {
         if(props.isAuthenticated){
             return id === loggedIn.user_id;
@@ -82,30 +65,6 @@ const QuestionsPage = (props) => {
         setSelectedID(id);
     }
 
-    // async function getUser(id){
-    //     //e.preventDefault();
-    //   try {
-    //     const result = await fetch(`/users/user/${id}`, {
-    //         method: "GET",
-    //         headers: {token: localStorage.token}
-    //     });
-
-    //     const parseRes = await result.json();
-    //     //return parseRes.fistname + " " + parseRes.lastname;
-    //     //return parseRes.firstname;
-    //     setName(parseRes);
-    //     //console.log(name);
-    //   } catch (err) {
-    //       console.error(err.message);
-    //   }
-
-    // }
-
-    // const author = (id) => {
-    //     getUser(id);
-    //     return name.firstname;
-    //     //return user.firstname + " " + user.lastname;
-    // }
 
     async function addLike(e, question){
         e.preventDefault();
@@ -157,7 +116,6 @@ const QuestionsPage = (props) => {
     }
 
     async function addAnswer(e, question){
-        //console.log(question);
         e.preventDefault();
         try {
             const myHeaders = new Headers();
@@ -177,8 +135,6 @@ const QuestionsPage = (props) => {
             console.log(parseResponse);
             newAnswer(e, loggedIn.user_id);
 
-            //   setQuestionsChange(true);
-            //setTitle("");
             setAnswerText("");
         } catch (err) {
             console.error(err.message);
@@ -189,12 +145,7 @@ const QuestionsPage = (props) => {
         e.preventDefault();
         selectID(e, id);
         let check = props.isAuthenticated;
-        //console.log("CHEECK ");
-        //return name.firstname;
         window.location = `/question-answers/${id}/${check}`;
-        //setRedirect(true);
-        //return <Redirect to="/question-answers" id={id} check={check} />
-        //return user.firstname + " " + user.lastname;
     }
 
     useEffect(() => {
@@ -202,18 +153,9 @@ const QuestionsPage = (props) => {
         if(props.isAuthenticated) setShowButtonAdd(true);
     }, [])
 
-    // if(redirect){
-    //     return <Redirect to="/question-answers" id={selectedID} check={props.isAuthenticated} />
-    // }
 
     return (
-        // key={q.question_id}
         <Fragment>
-            {/* <br/>
-            <h2>All questions</h2>
-            <br/> */}
-            {/* <button className="btn btn-primary" onClick={e => logout(e)}>Logout</button> */}
-            {/* <AddQuestion/> */}
 
             <br/>
             <h3>Questions</h3>
@@ -224,11 +166,8 @@ const QuestionsPage = (props) => {
                             <div className="d-flex justify-content-between">
                                 <h5>{q.title}</h5>
                                 <div className="ms-2 c-details">
-                                    {/* <small>{author(q.user_id)}</small> */}
-                                    {/* <button onClick={(e) => getUser(e, q.user_id)}>Korisnik</button> */}
                                     <small className="mb-0">{getDate(q.question_date)}</small>
                                 </div>
-                                {/* , {getDate(q.question_date)} */}
                             </div>
                             <div className="mt-3">
                                 <p className="heading">{q.question_text}</p>
@@ -239,7 +178,6 @@ const QuestionsPage = (props) => {
                                         <button className="like" onClick={(e) => addDislike(e, q.question_id)}><i className="fa fa-thumbs-down"></i> {q.dislikes}</button>
                                     </div>
                                     <div className="btn-toolbar">
-                                    {/* showButtonAdd && !checkID(q.user_id) &&  */}
                                         {showButtonAdd && !checkID(q.user_id) && <button className="btn btn-info btn-sm addAnswer" data-toggle="modal" data-target="#addForm" onClick={(e) => selectID(e, q.question_id)}>Add answer</button>}
                                         &nbsp; &nbsp;
                                         <button className="btn btn-info btn-sm viewAnswers" onClick={(e) => viewAnswers(e, q.question_id)}>View answers</button>

@@ -15,7 +15,6 @@ const QuestionsList = ({setAuth}) => {
             });
 
             const parseRes = await response.json();
-            //setName(parseRes.firstname);
             parseRes.sort((a,b) => (a.question_date > b.question_date) ? -1 : ((b.question_date > a.question_date) ? 1 : 0))
             setQuestions(parseRes);
             console.log(parseRes);
@@ -23,25 +22,6 @@ const QuestionsList = ({setAuth}) => {
             console.error(err.message);
         }
     }
-
-    async function deleteQuestion(id) {
-        try {
-          await fetch(`/my-questions/delete-question/${id}`, {
-            method: "DELETE",
-            headers: { token: localStorage.token }
-          });
-    
-          setQuestions(questions.filter(question => question.question_id !== id));
-        } catch (err) {
-          console.error(err.message);
-        }
-    }
-
-    // const logout = (e) => {
-    //     e.preventDefault();
-    //     localStorage.removeItem("token");
-    //     setAuth(false);
-    // }
 
     const getDate = (date) => {
         var dat = new Date(date);
@@ -53,24 +33,6 @@ const QuestionsList = ({setAuth}) => {
         setQuestionsRange(questionsRange + 2)
         console.log("range" + questionsRange);
     }
-
-    // const refresh = async() =>{
-    //     try {
-    //       const response = await fetch("/auth/is-verified", {
-    //         method: "POST",
-    //         headers: {token : localStorage.token}
-    //       });
-          
-    //       const parseRes = await response.json();
-    //       //const parseRes = true;
-          
-    //       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-    
-    //     } catch (err) {
-    //       console.error(err.message);
-    //     }
-    //     //setIsAuthenticated(false);
-    //   }
     
 
     useEffect(() => {
@@ -90,10 +52,6 @@ const QuestionsList = ({setAuth}) => {
                             <div className="d-flex justify-content-between">
                                 <h5>{q.title}</h5>
                                 <div className="ms-2 c-details">
-                                    <small className="mb-0">{getDate(q.question_date)}</small>
-                                    {/* <button type="button" class="btn close" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button> */}
                                 </div>
                             </div>
                             <div className="mt-3">
@@ -102,9 +60,6 @@ const QuestionsList = ({setAuth}) => {
                                     <p><i className="fa fa-thumbs-up" aria-hidden="true"></i> {q.likes} 
                                     &nbsp; &nbsp; <i className="fa fa-thumbs-down"></i> {q.dislikes}</p>
                                     <div className="btn-toolbar">
-                                        {/* <button className="btn btn-info btn-sm viewAnswers">View answers</button>
-                                        &nbsp; &nbsp; */}
-                                        <button className="btn btn-danger btn-sm deleteQuestion" onClick={(e) => deleteQuestion(q.question_id)}>Delete</button>
                                     </div>
                                 </div>
                             </div>

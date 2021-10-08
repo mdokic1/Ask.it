@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import './homepage.css';
 
 const Homepage = ({setAuth}) => {
@@ -17,10 +16,8 @@ const Homepage = ({setAuth}) => {
             });
 
             const parseRes = await response.json();
-            //setName(parseRes.firstname);
             parseRes.sort((a,b) => (a.question_date > b.question_date) ? -1 : ((b.question_date > a.question_date) ? 1 : 0))
             setNewestQuestions(parseRes);
-            console.log(parseRes);
         } catch (err) {
             console.error(err.message);
         }
@@ -34,10 +31,8 @@ const Homepage = ({setAuth}) => {
             });
 
             const parseRes = await response.json();
-            //setName(parseRes.firstname);
             parseRes.sort((a,b) => (a.answers > b.answers) ? -1 : ((b.answers > a.answers) ? 1 : 0))
             setMostAnswers(parseRes);
-            console.log(parseRes);
         } catch (err) {
             console.error(err.message);
         }
@@ -51,10 +46,8 @@ const Homepage = ({setAuth}) => {
             });
 
             const parseRes = await response.json();
-            //setName(parseRes.firstname);
             parseRes.sort((a,b) => (a.likes > b.likes) ? -1 : ((b.likes > a.likes) ? 1 : 0))
             setMostLiked(parseRes);
-            console.log(parseRes);
         } catch (err) {
             console.error(err.message);
         }
@@ -63,7 +56,6 @@ const Homepage = ({setAuth}) => {
     const loadMore = (e) => {
         e.preventDefault()
         setQuestionsRange(questionsRange + 2)
-        console.log("range" + questionsRange);
     }
 
     const getDate = (date) => {
@@ -91,10 +83,6 @@ const Homepage = ({setAuth}) => {
                                     <div className="d-flex justify-content-between">
                                         <h6 className="title">{q.title}</h6>
                                         <div className="ms-2 c-details">
-                                            {/* <small className="mb-0">{getDate(q.question_date)}</small> */}
-                                            {/* <button type="button" class="btn close" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button> */}
                                         </div>
                                     </div>
                                     <div className="mt-3">
@@ -139,10 +127,6 @@ const Homepage = ({setAuth}) => {
                                         <div className="d-flex justify-content-between">
                                             <h6 className="title">{q.title}</h6>
                                             <div className="ms-2 c-details">
-                                                {/* <small className="mb-0">{getDate(q.question_date)}</small> */}
-                                                {/* <button type="button" class="btn close" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button> */}
                                             </div>
                                         </div>
                                         <div className="mt-3">

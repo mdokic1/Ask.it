@@ -28,14 +28,7 @@ const ChangePassword = (props) => {    //props.id  props.user_password
 
             console.log(response.json());
 
-
-            // setName("");
-            // setSurname("");
-            // setEmail("");
-
             window.location.reload(false);
-            //getAnswers();
-            //const parseRes = await response.json();
 
         } catch (err) {
             console.error(err.message);
@@ -54,7 +47,6 @@ const ChangePassword = (props) => {    //props.id  props.user_password
                         name="newPassword" 
                         placeholder="Enter new password" 
                         className="form-control" 
-                        // value={password}
                         pattern=".{5,}"
                         title="minimum 5 characters"
                         onChange={e => setNewPassword(e.target.value)}
@@ -69,13 +61,11 @@ const ChangePassword = (props) => {    //props.id  props.user_password
                         name="confPassword" 
                         placeholder="Confirm password" 
                         className="form-control" 
-                        // value={password}
                         pattern=".{5,}"
                         title="minimum 5 characters"
                         onChange={e => setConfPassword(e.target.value)}
                         required
                     />
-                {/* <p className="forgot-password text-right">Password must be at least 5 characters long</p>     */}
                 </div>
                 <div className="form-group my-3">
                     <button className="btn btn-primary btn-block" type="submit">Confirm</button>

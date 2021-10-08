@@ -1,25 +1,14 @@
 import React, {Fragment, useState, useEffect} from "react";
-import AddQuestion from "./addQuestion";
 import './questionAnswers.css';
-import {useParams, withRouter} from "react-router-dom";
-import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
-import Form from "react-bootstrap/Form";
-import AddAnswer from "../answers/addAnswer";
-import { parse } from "dotenv";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import {useParams} from "react-router-dom";
 
 const QuestionAnswers = (props) => {
     const {id, check} = useParams()
-    //logged();
     console.log("IDDD" + id);
     console.log("check " + check);
     const [answers, setAnswers] = useState([]);  // prazan niz
-    const [name, setName] = useState("");
-    const [newAnswerForm, setNewAnswerForm] = useState(false);
     const [answer_text, setAnswerText] = useState("");
     const [selectedID, setSelectedID] = useState(0);
-    // const [question, setQuestion] = useState("");
     const [loggedIn, setLoggedIn] = useState([]);
 
     async function findLoggedUser(){
@@ -37,21 +26,7 @@ const QuestionAnswers = (props) => {
         }
     
     }
-
-    // async function findQuestion(id){
-    //     try {
-    //         const response = await fetch(`/my-questions/question/${id}`, {
-    //             method: "GET",
-    //             headers: {token: localStorage.token}
-    //         });
-    //         const parseRes = await response.json();
-    //         setQuestion(parseRes);
-    //         console.log(parseRes);
-    //     } catch (err) {
-    //         console.error(err.message);
-    //     }
-    // }
-    
+  
 
     async function getAnswers(){
         try {
@@ -61,17 +36,13 @@ const QuestionAnswers = (props) => {
             });
 
             const parseRes = await response.json();
-            //setName(parseRes.firstname);
             parseRes.sort((a,b) => (a.answer_date > b.answer_date) ? -1 : ((b.answer_date > a.answer_date) ? 1 : 0))
             
             setAnswers(parseRes);
 
             if(check == "true"){
-                console.log("Usao nekako");
                 findLoggedUser();
             }
-
-            //findQuestion(id);
 
 
         } catch (err) {
@@ -105,30 +76,6 @@ const QuestionAnswers = (props) => {
         setAnswerText(answerText);
     }
 
-    // async function getUser(id){
-    //     //e.preventDefault();
-    //   try {
-    //     const result = await fetch(`/users/user/${id}`, {
-    //         method: "GET",
-    //         headers: {token: localStorage.token}
-    //     });
-
-    //     const parseRes = await result.json();
-    //     //return parseRes.fistname + " " + parseRes.lastname;
-    //     //return parseRes.firstname;
-    //     setName(parseRes);
-    //     //console.log(name);
-    //   } catch (err) {
-    //       console.error(err.message);
-    //   }
-
-    // }
-
-    // const author = (id) => {
-    //     getUser(id);
-    //     //return name.firstname;
-    //     //return user.firstname + " " + user.lastname;
-    // }
 
     async function addLike(e, answer){
         e.preventDefault();
@@ -198,22 +145,6 @@ const QuestionAnswers = (props) => {
 
     return (
         <Fragment>
-            {/* <br/>
-            <div className="list-group-item list-question">
-                <div className="d-flex justify-content-between">
-                    <h5>{question.title}</h5>
-                    <div className="ms-2 c-details">
-                        <small className="mb-0">{getDate(question.question_date)}</small>
-                    </div>
-                </div>
-                <div className="mt-3">
-                    <p className="heading">{question.question_text}</p>
-                    <div className="mt-3 d-flex justify-content-between">
-                        <p><i className="fa fa-thumbs-up" aria-hidden="true"></i> {question.likes} 
-                        &nbsp; &nbsp; <i className="fa fa-thumbs-down"></i> {question.dislikes}</p>
-                    </div>
-                </div>
-            </div> */}
             <br/>
             <h3>Answers</h3>
             <div className="list-group answers-list">
@@ -223,12 +154,8 @@ const QuestionAnswers = (props) => {
                             <div className="d-flex justify-content-between">
                                 <h5></h5>
                                 <div className="ms-2 c-details">
-                                    {/* {author(a.user_id)}
-                                    <small>{name.firstname}</small> */}
-                                    {/* <button onClick={(e) => getUser(e, q.user_id)}>Korisnik</button> */}
                                     <small className="mb-0">{getDate(a.answer_date)}</small>
                                 </div>
-                                {/* , {getDate(q.question_date)} */}
                             </div>
                             <div className="mt-3">
                                 <p className="heading">{a.answer_text}</p>
@@ -241,7 +168,7 @@ const QuestionAnswers = (props) => {
                                     {checkID(a.user_id) ? <div className="btn-toolbar">
                                         <button className="btn btn-info btn-sm editAnswer" data-toggle="modal" data-target="#editForm" onClick={(e) => selectID(e, a.answer_id, a.answer_text)}>Edit</button>
                                         &nbsp; &nbsp;
-                                        <button className="btn btn-danger btn-sm" onClick={(e) => deleteAnswer(e, a.answer_id)}>Delete</button>
+                                        <button className="btn btn-danger btn-sm" onClick={(e) => { if (window.confirm('Are you sure you want to delete this item?')) deleteAnswer(e, a.answer_id)} }>Delete</button>
                                     </div> : <div></div>}
                                 </div>
                             </div>

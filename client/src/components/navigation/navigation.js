@@ -6,14 +6,12 @@ const Navigation = (props) => {
    
     let items;
     
-    //const[redirect, setRedirect] = useState(false);
 
     function logout(e){
         e.preventDefault();
         localStorage.removeItem("token");
         props.setAuth(false);
         window.location.replace("/home");
-        //setRedirect(true);
     }
 
     if(props.isAuthenticated){
@@ -36,7 +34,6 @@ const Navigation = (props) => {
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={"/home"} onClick={(e) => logout(e)}>Logout</Link>
-                        {/* ovo ce vracati na homepage */}
                     </li>
                 </ul>
             </div>

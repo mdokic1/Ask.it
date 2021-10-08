@@ -27,18 +27,6 @@ h2{
 .all-scroll{
     overflow-y: scroll;
     max-height: 500px;
-    /* padding-top: 300px; */
     width: 70%;
     margin: auto;
 }
-
-/* .accordion{
-    margin-top: 80px;
-} */
-
-/* .accordion {
-    width: 50%;
-    margin-right: auto;
-    margin-left: auto;
-    text-align: left;
-} */
