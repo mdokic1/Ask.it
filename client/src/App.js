@@ -53,7 +53,7 @@ function App() {
               props => !isAuthenticated ? <Login {... props} setAuth = {setAuth} /> : <Redirect to="/myquestions" />}  // ako je autentikacija uspjela ide na myquestions, a ako nije onda ide login
             />
             {/* <Route path="/register" render={
-              props => !isAuthenticated ? <Register {... props} setAuth = {setAuth} /> : <Redirect to="/myquestions" />}
+              props => !isAuthenticated ? <Register {... props} setAuth = {setAuth} /> : <Redirect to="/login" />}
             /> */}
              <Route path="/register" component={Register}/>
             {/* <Route path="/myquestions" render={

@@ -83,13 +83,13 @@ const Homepage = ({setAuth}) => {
             <div className="wrapper">
                 <div className="row">
                     <div className="col-sm">
-                        <h4>Newest questions</h4>
+                        <h5>Newest questions</h5>
                         <div className="list-group home-scroll">
                         {
                             newestQuestions.slice(0, questionsRange).map(q => 
                                 <div key={q.question_id} className="list-group-item">
                                     <div className="d-flex justify-content-between">
-                                        <h5>{q.title}</h5>
+                                        <h6 className="title">{q.title}</h6>
                                         <div className="ms-2 c-details">
                                             {/* <small className="mb-0">{getDate(q.question_date)}</small> */}
                                             {/* <button type="button" class="btn close" aria-label="Close">
@@ -98,7 +98,7 @@ const Homepage = ({setAuth}) => {
                                         </div>
                                     </div>
                                     <div className="mt-3">
-                                        <p className="heading">{getDate(q.question_date)}</p>
+                                        <small className="heading">Posted on: {getDate(q.question_date)}</small>
                                         <div className="mt-3 d-flex justify-content-between">
                                             <p><i className="fa fa-thumbs-up" aria-hidden="true"></i> {q.likes} 
                                             &nbsp; &nbsp; <i className="fa fa-thumbs-down"></i> {q.dislikes}</p>
@@ -114,16 +114,16 @@ const Homepage = ({setAuth}) => {
                         </div>
                     </div>
                     <div className="col-sm">
-                        <h4>Top 3 people with the most answers</h4>
+                        <h5>Top 3 people with the most answers</h5>
                         <div className="list-group no-scroll">
                             {
                                 mostAnswers.slice(0,3).map(u => 
                                     <div key={u.user_id} className="list-group-item">
                                         <div className="d-flex justify-content-between">
-                                            <h5>{u.firstname} {u.lastname}</h5>
+                                            <h6 className="title">{u.firstname} {u.lastname}</h6>
                                         </div>
                                         <div className="mt-3">
-                                            <p className="heading">Answered questions: {u.answers}</p>
+                                            <small className="heading">Answered questions: {u.answers}</small>
                                         </div>
                                     </div>
                                 )
@@ -131,13 +131,13 @@ const Homepage = ({setAuth}) => {
                         </div>
                     </div>
                     <div className="col-sm">
-                        <h4>Top 3 questions with the most likes</h4>
+                        <h5>Top 3 questions with the most likes</h5>
                         <div className="list-group no-scroll">
                             {
                                 mostLiked.slice(0,3).map(q => 
                                     <div key={q.question_id} className="list-group-item">
                                         <div className="d-flex justify-content-between">
-                                            <h5>{q.title}</h5>
+                                            <h6 className="title">{q.title}</h6>
                                             <div className="ms-2 c-details">
                                                 {/* <small className="mb-0">{getDate(q.question_date)}</small> */}
                                                 {/* <button type="button" class="btn close" aria-label="Close">
@@ -146,7 +146,7 @@ const Homepage = ({setAuth}) => {
                                             </div>
                                         </div>
                                         <div className="mt-3">
-                                            <p className="heading">{getDate(q.question_date)}</p>
+                                            <small className="heading">Posted on: {getDate(q.question_date)}</small>
                                             <div className="mt-3 d-flex justify-content-between">
                                                 <p><i className="fa fa-thumbs-up" aria-hidden="true"></i> {q.likes} </p> 
                                             </div>

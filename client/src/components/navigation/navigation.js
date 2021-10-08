@@ -1,16 +1,19 @@
-import React from 'react'
-import {Link} from "react-router-dom";
+import {React, useState} from 'react'
+import {Link, Redirect} from "react-router-dom";
 import './navigation.css';
 
 const Navigation = (props) => {
    
     let items;
+    
+    //const[redirect, setRedirect] = useState(false);
 
-    const logout = (e) => {
+    function logout(e){
         e.preventDefault();
         localStorage.removeItem("token");
         props.setAuth(false);
-        window.location = "/home";
+        window.location.replace("/home");
+        //setRedirect(true);
     }
 
     if(props.isAuthenticated){
@@ -61,6 +64,7 @@ const Navigation = (props) => {
             </div>
         )
     }
+
     return(
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
                 <Link className="navbar-brand" to={"/login"}>Ask.it</Link>

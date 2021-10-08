@@ -1,5 +1,5 @@
 import React, {Fragment, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import '../login/login.css';
 
 const Register = ({setAuth}) => {
@@ -10,6 +10,7 @@ const Register = ({setAuth}) => {
         email: "",
         password: ""
     })
+    const[redirect, setRedirect] = useState(false);
 
     const{firstname, lastname, email, password} = inputs;
 
@@ -36,7 +37,8 @@ const Register = ({setAuth}) => {
                 alert("User already exists");
             }
             else{
-                window.location = "/login";
+                //window.location = "/login";
+                setRedirect(true);
             }
             //localStorage.setItem("token", parseRes.token);
             //setAuth(true);
@@ -44,6 +46,10 @@ const Register = ({setAuth}) => {
         } catch (err) {
             console.error(err.message);
         }
+    }
+
+    if(redirect){
+        return <Redirect to="/login" />
     }
 
     return (
