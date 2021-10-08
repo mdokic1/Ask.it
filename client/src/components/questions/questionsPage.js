@@ -217,7 +217,7 @@ const QuestionsPage = (props) => {
 
             <br/>
             <h3>Questions</h3>
-            <div className="list-group scroll">
+            <div className="list-group all-scroll">
                 {
                       questions.map(q =>  
                         <div key={q.question_id} className="list-group-item">

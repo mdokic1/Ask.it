@@ -83,8 +83,8 @@ const Homepage = ({setAuth}) => {
             <div className="wrapper">
                 <div className="row">
                     <div className="col-sm">
-                        <h4>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Newest Questions</h4>
-                        <div className="list-group scroll">
+                        <h4>Newest Questions</h4>
+                        <div className="list-group home-scroll">
                         {
                             newestQuestions.slice(0, questionsRange).map(q => 
                                 <div key={q.question_id} className="list-group-item">
@@ -114,7 +114,7 @@ const Homepage = ({setAuth}) => {
                         </div>
                     </div>
                     <div className="col-sm">
-                        <h4>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; People with most answers</h4>
+                        <h4>Top 3 people with the most answers</h4>
                         <div className="list-group no-scroll">
                             {
                                 mostAnswers.slice(0,3).map(u => 
@@ -131,7 +131,7 @@ const Homepage = ({setAuth}) => {
                         </div>
                     </div>
                     <div className="col-sm">
-                        <h4>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Questions with most likes</h4>
+                        <h4>Top 3 questions with the most likes</h4>
                         <div className="list-group no-scroll">
                             {
                                 mostLiked.slice(0,3).map(q => 
