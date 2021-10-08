@@ -128,6 +128,23 @@ const QuestionsPage = (props) => {
         }
     }
 
+    async function newAnswer(e, user) {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:5000/users/add-answer/${user}`, {
+            method: "PUT",
+            headers: {token: localStorage.token}
+
+        });
+
+        getQuestions();
+        console.log("Usao");
+
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
     async function addAnswer(e, question){
         //console.log(question);
         e.preventDefault();
@@ -147,6 +164,7 @@ const QuestionsPage = (props) => {
             const parseResponse = await response.json();
 
             console.log(parseResponse);
+            newAnswer(e, loggedIn.user_id);
 
             //   setQuestionsChange(true);
             //setTitle("");
@@ -180,8 +198,7 @@ const QuestionsPage = (props) => {
 
             <br/>
             <h3>Questions</h3>
-            
-            <div className="list-group">
+            <div className="list-group scroll">
                 {
                     questions.map(q => 
                         <><div key={q.question_id} className="list-group-item">

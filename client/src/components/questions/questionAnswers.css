@@ -15,8 +15,8 @@ h2{
 }
 
 .list-group{
-    overflow-y: scroll;
-    max-height: 600px;
+    /* overflow-y: scroll;
+    max-height: 600px; */
     width: 70%;
     margin: auto;
     margin-top: 10px;

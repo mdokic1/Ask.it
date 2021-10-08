@@ -5,11 +5,11 @@ import './questionsList.css';
 const QuestionsList = ({setAuth}) => {
 
     const [questions, setQuestions] = useState([]);  // prazan niz
-    const [questionsRange, setQuestionsRange] = useState(8); //promijeniti na 20 !!!!!
+    const [questionsRange, setQuestionsRange] = useState(20); //promijeniti na 20 !!!!!
 
     async function getQuestions(){
         try {
-            const response = await fetch("/my-questions/", {
+            const response = await fetch("http://localhost:5000/my-questions/", {
                 method: "GET",
                 headers: {token: localStorage.token}
             });
@@ -63,9 +63,8 @@ const QuestionsList = ({setAuth}) => {
             <br/>
             <h3>My Questions</h3>
             <br/>
-            {/* <button className="btn btn-primary" onClick={e => logout(e)}>Logout</button> */}
             <AddQuestion/>
-            <div className="list-group">
+            <div className="list-group scroll">
                 {
                     questions.slice(0, questionsRange).map(q => 
                         <div key={q.question_id} className="list-group-item">
@@ -84,8 +83,8 @@ const QuestionsList = ({setAuth}) => {
                                     <p><i className="fa fa-thumbs-up" aria-hidden="true"></i> {q.likes} 
                                     &nbsp; &nbsp; <i className="fa fa-thumbs-down"></i> {q.dislikes}</p>
                                     <div className="btn-toolbar">
-                                        <button className="btn btn-info btn-sm viewAnswers">View answers</button>
-                                        &nbsp; &nbsp;
+                                        {/* <button className="btn btn-info btn-sm viewAnswers">View answers</button>
+                                        &nbsp; &nbsp; */}
                                         <button className="btn btn-danger btn-sm deleteQuestion" onClick={(e) => deleteQuestion(q.question_id)}>Delete</button>
                                     </div>
                                 </div>
@@ -96,7 +95,7 @@ const QuestionsList = ({setAuth}) => {
             </div>
             &nbsp; &nbsp;
             <div className="col text-center">
-                <button className="btn btn-secondary loadMore" onClick={e => loadMore(e)}>Load more</button>
+                <button className="btn btn-secondary loadMore" onClick={e => loadMore(e)}>Load More</button>
             </div>
         </Fragment>
     )

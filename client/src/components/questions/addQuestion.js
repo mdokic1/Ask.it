@@ -45,7 +45,7 @@ const AddQuestion = ({setAuth}) => {
           Add question
         </button>
       </div>
-      <br></br>
+      {/* <br></br> */}
       <div className="modal fade" id="forma">
             <div className="modal-dialog">
                 <div className="modal-content">

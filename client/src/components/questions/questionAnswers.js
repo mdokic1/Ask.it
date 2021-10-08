@@ -207,7 +207,7 @@ const QuestionAnswers = ({setAuth}) => {
             </div> */}
             <br/>
             <h3>Answers</h3>
-            <div className="list-group">
+            <div className="list-group answers-list">
                 {
                     answers.map(a => 
                         <><div key={a.answer_id} className="list-group-item">

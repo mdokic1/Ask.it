@@ -18,6 +18,21 @@ router.get("/user/:id", authorization, async (req, res) => {
     }
 });
 
+// get all users
+router.get("/all-users", async (req, res) => {
+  try {
+    const users = await pool.query(
+      "SELECT * FROM users"
+    );
+
+    res.json(users.rows);
+    //res.json(req.user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error");
+  }
+});
+
 // get logged in user
 router.get("/user-logged", authorization, async (req, res) => {
   try {
@@ -74,6 +89,25 @@ router.put("/edit-pass/:id", async (req, res) => {
     // }
     
 
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+//add answer
+router.put("/add-answer/:id", async (req, res) => {
+  try {
+    const {id} = req.params;
+    const updateUser = await pool.query(
+      "UPDATE users SET answers = answers + 1 WHERE user_id = $1 RETURNING *",
+      [id]
+    );
+
+    // if (updateQuestion.rows.length === 0) {
+    //   return res.json("This todo is not yours");
+    // }
+
+    res.json("User was updated");
   } catch (err) {
     console.error(err.message);
   }
