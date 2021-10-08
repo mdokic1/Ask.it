@@ -11,7 +11,7 @@ const Homepage = ({setAuth}) => {
 
     async function getNewestQuestions(){
         try {
-            const response = await fetch("http://localhost:5000/my-questions/all-questions", {
+            const response = await fetch("/my-questions/all-questions", {
                 method: "GET",
                 // headers: {token: localStorage.token}
             });
@@ -28,7 +28,7 @@ const Homepage = ({setAuth}) => {
 
     async function getMostAnswersUsers(){
         try {
-            const response = await fetch("http://localhost:5000/users/all-users", {
+            const response = await fetch("/users/all-users", {
                 method: "GET",
                 // headers: {token: localStorage.token}
             });
@@ -45,7 +45,7 @@ const Homepage = ({setAuth}) => {
 
     async function getMostLikedQuestions(){
         try {
-            const response = await fetch("http://localhost:5000/my-questions/all-questions", {
+            const response = await fetch("/my-questions/all-questions", {
                 method: "GET",
                 // headers: {token: localStorage.token}
             });

@@ -9,7 +9,7 @@ const MyProfile = ({setAuth}) => {
 
     async function findLoggedUser(){
         try {
-            const response = await fetch(`http://localhost:5000/users/user-logged`, {
+            const response = await fetch(`/users/user-logged`, {
                 method: "GET",
                 headers: {token: localStorage.token}
             });

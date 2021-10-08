@@ -25,7 +25,7 @@ const QuestionAnswers = (props) => {
     async function findLoggedUser(){
        
         try {
-            const response = await fetch(`http://localhost:5000/users/user-logged`, {
+            const response = await fetch(`/users/user-logged`, {
                 method: "GET",
                 headers: {token: localStorage.token}
             });
@@ -40,7 +40,7 @@ const QuestionAnswers = (props) => {
 
     // async function findQuestion(id){
     //     try {
-    //         const response = await fetch(`http://localhost:5000/my-questions/question/${id}`, {
+    //         const response = await fetch(`/my-questions/question/${id}`, {
     //             method: "GET",
     //             headers: {token: localStorage.token}
     //         });
@@ -55,7 +55,7 @@ const QuestionAnswers = (props) => {
 
     async function getAnswers(){
         try {
-            const response = await fetch(`http://localhost:5000/answers/all-answers/${id}`, {
+            const response = await fetch(`/answers/all-answers/${id}`, {
                 method: "GET",
                 // headers: {token: localStorage.token}
             });
@@ -83,7 +83,7 @@ const QuestionAnswers = (props) => {
         e.preventDefault();
 
         try {
-          await fetch(`http://localhost:5000/answers/delete/${id}`, {
+          await fetch(`/answers/delete/${id}`, {
             method: "DELETE",
             headers: { token: localStorage.token }
           });
@@ -108,7 +108,7 @@ const QuestionAnswers = (props) => {
     // async function getUser(id){
     //     //e.preventDefault();
     //   try {
-    //     const result = await fetch(`http://localhost:5000/users/user/${id}`, {
+    //     const result = await fetch(`/users/user/${id}`, {
     //         method: "GET",
     //         headers: {token: localStorage.token}
     //     });
@@ -133,7 +133,7 @@ const QuestionAnswers = (props) => {
     async function addLike(e, answer){
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/answers/like/${answer}`, {
+            const response = await fetch(`/answers/like/${answer}`, {
             method: "PUT",
             // headers: {token: localStorage.token}
 
@@ -149,7 +149,7 @@ const QuestionAnswers = (props) => {
     async function addDislike(e, answer){
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/answers/dislike/${answer}`, {
+            const response = await fetch(`/answers/dislike/${answer}`, {
             method: "PUT",
             // headers: {token: localStorage.token}
 
@@ -171,7 +171,7 @@ const QuestionAnswers = (props) => {
             myHeaders.append("token", localStorage.token);
 
             const body = { answer_text };
-            const response = await fetch(`http://localhost:5000/answers/edit/${answerID}`, {
+            const response = await fetch(`/answers/edit/${answerID}`, {
                 method: "PUT",
                 headers: myHeaders,
                 body: JSON.stringify(body)

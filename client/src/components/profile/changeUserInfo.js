@@ -9,7 +9,7 @@ const ChangeUserInfo = (props) => {
 
     // async function findLoggedUser(){
     //     try {
-    //         const response = await fetch(`http://localhost:5000/users/user-logged`, {
+    //         const response = await fetch(`/users/user-logged`, {
     //             method: "GET",
     //             headers: {token: localStorage.token}
     //         });
@@ -40,7 +40,7 @@ const ChangeUserInfo = (props) => {
             myHeaders.append("token", localStorage.token);
 
             const body = {name, surname, email};
-            const response = await fetch(`http://localhost:5000/users/edit/${props.id}`, {
+            const response = await fetch(`/users/edit/${props.id}`, {
                 method: "PUT",
                 headers: myHeaders,
                 body: JSON.stringify(body)

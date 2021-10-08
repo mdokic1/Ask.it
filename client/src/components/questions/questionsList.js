@@ -9,7 +9,7 @@ const QuestionsList = ({setAuth}) => {
 
     async function getQuestions(){
         try {
-            const response = await fetch("http://localhost:5000/my-questions/", {
+            const response = await fetch("/my-questions/", {
                 method: "GET",
                 headers: {token: localStorage.token}
             });
@@ -56,7 +56,7 @@ const QuestionsList = ({setAuth}) => {
 
     // const refresh = async() =>{
     //     try {
-    //       const response = await fetch("http://localhost:5000/auth/is-verified", {
+    //       const response = await fetch("/auth/is-verified", {
     //         method: "POST",
     //         headers: {token : localStorage.token}
     //       });

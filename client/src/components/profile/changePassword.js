@@ -20,7 +20,7 @@ const ChangePassword = (props) => {    //props.id  props.user_password
             myHeaders.append("token", localStorage.token);
 
             const body = {newPassword};
-            const response = await fetch(`http://localhost:5000/users/edit-pass/${props.id}`, {
+            const response = await fetch(`/users/edit-pass/${props.id}`, {
                 method: "PUT",
                 headers: myHeaders,
                 body: JSON.stringify(body)
