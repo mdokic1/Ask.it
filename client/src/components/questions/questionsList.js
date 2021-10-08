@@ -54,6 +54,25 @@ const QuestionsList = ({setAuth}) => {
         console.log("range" + questionsRange);
     }
 
+    // const refresh = async() =>{
+    //     try {
+    //       const response = await fetch("http://localhost:5000/auth/is-verified", {
+    //         method: "POST",
+    //         headers: {token : localStorage.token}
+    //       });
+          
+    //       const parseRes = await response.json();
+    //       //const parseRes = true;
+          
+    //       parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    
+    //     } catch (err) {
+    //       console.error(err.message);
+    //     }
+    //     //setIsAuthenticated(false);
+    //   }
+    
+
     useEffect(() => {
         getQuestions();
     }, [])

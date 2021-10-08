@@ -28,9 +28,17 @@ const Login = ({setAuth}) => {
             });
 
             const parseRes = await response.json();
- 
-            localStorage.setItem("token", parseRes.token);
-            setAuth(true);
+            console.log("Rez logina " + parseRes);
+
+            if(parseRes == "Password or email is incorrect"){
+                alert("Password or email is incorrect");
+                setAuth(false);
+            }
+
+            else{
+                localStorage.setItem("token", parseRes.token);
+                setAuth(true);
+            }
 
         } catch (err) {
             console.error(err.message);

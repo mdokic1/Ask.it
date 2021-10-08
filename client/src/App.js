@@ -39,6 +39,7 @@ function App() {
 
   useEffect(() => {    // kada se uradi refresh ne vraca se odmah na login, nego provjerava token
     isAuth();
+    //setIsAuthenticated(false);
   }, []);
 
   return (
@@ -51,18 +52,20 @@ function App() {
             <Route path="/login" render={
               props => !isAuthenticated ? <Login {... props} setAuth = {setAuth} /> : <Redirect to="/myquestions" />}  // ako je autentikacija uspjela ide na myquestions, a ako nije onda ide login
             />
-            <Route path="/register" render={
+            {/* <Route path="/register" render={
               props => !isAuthenticated ? <Register {... props} setAuth = {setAuth} /> : <Redirect to="/myquestions" />}
-            />
-            <Route path="/myquestions" render={
+            /> */}
+             <Route path="/register" component={Register}/>
+            {/* <Route path="/myquestions" render={
               props => isAuthenticated ? <QuestionsList {... props} setAuth = {setAuth} /> : <Redirect to="/login" />}
-            />
+            /> */}
             {/* <Route exact path="/questions" render={
               props => isAuthenticated ? <QuestionsPage {... props} setAuth = {setAuth} /> : <Redirect to="/home" />}
             /> */}
-            <Route path="/question-answers/:id/:check" render={
-              props => <QuestionAnswers {... props} setAuth = {setAuth} />}
+            <Route path="/myquestions" render={
+              props => <QuestionsList {... props} setAuth = {setAuth} />}
             />
+            <Route path="/question-answers/:id/:check" component={QuestionAnswers}/>
             {/* <Route path="/question-answers/:id" component={QuestionAnswers}/>  */}
             <Route path="/questions" render={
               props => <QuestionsPage {... props} {...{isAuthenticated}} setAuth = {setAuth} />}

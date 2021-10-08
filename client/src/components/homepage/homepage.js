@@ -13,7 +13,7 @@ const Homepage = ({setAuth}) => {
         try {
             const response = await fetch("http://localhost:5000/my-questions/all-questions", {
                 method: "GET",
-                headers: {token: localStorage.token}
+                // headers: {token: localStorage.token}
             });
 
             const parseRes = await response.json();
@@ -30,7 +30,7 @@ const Homepage = ({setAuth}) => {
         try {
             const response = await fetch("http://localhost:5000/users/all-users", {
                 method: "GET",
-                headers: {token: localStorage.token}
+                // headers: {token: localStorage.token}
             });
 
             const parseRes = await response.json();
@@ -47,7 +47,7 @@ const Homepage = ({setAuth}) => {
         try {
             const response = await fetch("http://localhost:5000/my-questions/all-questions", {
                 method: "GET",
-                headers: {token: localStorage.token}
+                // headers: {token: localStorage.token}
             });
 
             const parseRes = await response.json();
@@ -83,7 +83,7 @@ const Homepage = ({setAuth}) => {
             <div className="wrapper">
                 <div className="row">
                     <div className="col-sm">
-                        <h4>Newest Questions</h4>
+                        <h4>Newest questions</h4>
                         <div className="list-group home-scroll">
                         {
                             newestQuestions.slice(0, questionsRange).map(q => 

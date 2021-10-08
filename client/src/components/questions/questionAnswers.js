@@ -19,7 +19,7 @@ const QuestionAnswers = (props) => {
     const [newAnswerForm, setNewAnswerForm] = useState(false);
     const [answer_text, setAnswerText] = useState("");
     const [selectedID, setSelectedID] = useState(0);
-    const [question, setQuestion] = useState("");
+    // const [question, setQuestion] = useState("");
     const [loggedIn, setLoggedIn] = useState([]);
 
     async function findLoggedUser(){
@@ -38,26 +38,26 @@ const QuestionAnswers = (props) => {
     
     }
 
-    async function findQuestion(id){
-        try {
-            const response = await fetch(`http://localhost:5000/my-questions/question/${id}`, {
-                method: "GET",
-                headers: {token: localStorage.token}
-            });
-            const parseRes = await response.json();
-            setQuestion(parseRes);
-            console.log(parseRes);
-        } catch (err) {
-            console.error(err.message);
-        }
-    }
+    // async function findQuestion(id){
+    //     try {
+    //         const response = await fetch(`http://localhost:5000/my-questions/question/${id}`, {
+    //             method: "GET",
+    //             headers: {token: localStorage.token}
+    //         });
+    //         const parseRes = await response.json();
+    //         setQuestion(parseRes);
+    //         console.log(parseRes);
+    //     } catch (err) {
+    //         console.error(err.message);
+    //     }
+    // }
     
 
     async function getAnswers(){
         try {
             const response = await fetch(`http://localhost:5000/answers/all-answers/${id}`, {
                 method: "GET",
-                headers: {token: localStorage.token}
+                // headers: {token: localStorage.token}
             });
 
             const parseRes = await response.json();
@@ -71,7 +71,7 @@ const QuestionAnswers = (props) => {
                 findLoggedUser();
             }
 
-            findQuestion(id);
+            //findQuestion(id);
 
 
         } catch (err) {
@@ -105,37 +105,37 @@ const QuestionAnswers = (props) => {
         setAnswerText(answerText);
     }
 
-    async function getUser(id){
-        //e.preventDefault();
-      try {
-        const result = await fetch(`http://localhost:5000/users/user/${id}`, {
-            method: "GET",
-            headers: {token: localStorage.token}
-        });
+    // async function getUser(id){
+    //     //e.preventDefault();
+    //   try {
+    //     const result = await fetch(`http://localhost:5000/users/user/${id}`, {
+    //         method: "GET",
+    //         headers: {token: localStorage.token}
+    //     });
 
-        const parseRes = await result.json();
-        //return parseRes.fistname + " " + parseRes.lastname;
-        //return parseRes.firstname;
-        setName(parseRes);
-        //console.log(name);
-      } catch (err) {
-          console.error(err.message);
-      }
+    //     const parseRes = await result.json();
+    //     //return parseRes.fistname + " " + parseRes.lastname;
+    //     //return parseRes.firstname;
+    //     setName(parseRes);
+    //     //console.log(name);
+    //   } catch (err) {
+    //       console.error(err.message);
+    //   }
 
-    }
+    // }
 
-    const author = (id) => {
-        getUser(id);
-        //return name.firstname;
-        //return user.firstname + " " + user.lastname;
-    }
+    // const author = (id) => {
+    //     getUser(id);
+    //     //return name.firstname;
+    //     //return user.firstname + " " + user.lastname;
+    // }
 
     async function addLike(e, answer){
         e.preventDefault();
         try {
             const response = await fetch(`http://localhost:5000/answers/like/${answer}`, {
             method: "PUT",
-            headers: {token: localStorage.token}
+            // headers: {token: localStorage.token}
 
         });
 
@@ -151,7 +151,7 @@ const QuestionAnswers = (props) => {
         try {
             const response = await fetch(`http://localhost:5000/answers/dislike/${answer}`, {
             method: "PUT",
-            headers: {token: localStorage.token}
+            // headers: {token: localStorage.token}
 
         });
 

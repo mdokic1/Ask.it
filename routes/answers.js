@@ -33,7 +33,7 @@ router.get("/all-answers/:id", async (req, res) => {
     //res.json(req.user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.json("Server error");
   }
 });
 
@@ -76,7 +76,7 @@ router.put("/dislike/:id", async (req, res) => {
 });
 
 //edit answer
-router.put("/edit/:id", async (req, res) => {
+router.put("/edit/:id", authorization, async (req, res) => {
   try {
     const {answer_text} = req.body;
     const { id } = req.params;

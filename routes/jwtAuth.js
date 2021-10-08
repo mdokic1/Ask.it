@@ -6,19 +6,20 @@ const jwtGenerator = require("../utils/jwtGenerator");
 const authorization = require("../middleware/authorization");
 
 //register
-router.post("/register", validInfo, async (req, res) => {
+router.post("/register", async (req, res) => {
     try {
       const {firstname, lastname, email, password} = req.body; 
        
-      const user = await pool.query("SELECT * FROM users WHERE firstname = $1 AND lastname = $2 AND email = $3",
-      [firstname, lastname, email]);
+      const user = await pool.query("SELECT * FROM users WHERE email = $1",
+      [email]);
 
        //res.json(user.rows);
 
       if (user.rows.length !== 0){
-          return res.status(401).send("User already exists");
+          //console.log("postoji");
+          return res.json("User already exists");
       }
-       
+      
       const saltRound = 10;
       const salt = await bcrypt.genSalt(saltRound);
         // const salt = await bcrypt.genSalt(10);
@@ -34,6 +35,7 @@ router.post("/register", validInfo, async (req, res) => {
 
       const token = jwtGenerator(newUser.rows[0].user_id);
       res.json({token});
+      
 
     } catch (err) {
         console.error(err.message);
@@ -42,7 +44,7 @@ router.post("/register", validInfo, async (req, res) => {
 });
 
 //login
-router.post("/login", validInfo, async (req, res) => {
+router.post("/login", async (req, res) => {
     const { email, password } = req.body;
   
     try {
@@ -51,7 +53,7 @@ router.post("/login", validInfo, async (req, res) => {
       ]);
   
       if (user.rows.length === 0) {
-        return res.status(401).json("Password or email is incorrect");
+        return res.json("Password or email is incorrect");
       }
   
       const validPassword = await bcrypt.compare(
@@ -62,7 +64,7 @@ router.post("/login", validInfo, async (req, res) => {
       //console.log(validPassword);
   
       if (!validPassword) {
-        return res.status(401).json("Password or email is incorrect");
+        return res.json("Password or email is incorrect");
       }
      
       const token = jwtGenerator(user.rows[0].user_id);
@@ -80,7 +82,7 @@ router.post("/is-verified", authorization, async (req, res) => {
       res.json(true);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server error");
+      res.send("Server error");
     }
 });
 

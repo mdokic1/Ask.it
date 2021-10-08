@@ -29,7 +29,7 @@ router.get("/all-users", async (req, res) => {
     //res.json(req.user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server error");
+    res.json("Server error");
   }
 });
 

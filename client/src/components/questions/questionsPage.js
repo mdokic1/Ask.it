@@ -42,7 +42,7 @@ const QuestionsPage = (props) => {
         try {
             const response = await fetch("http://localhost:5000/my-questions/all-questions", {
                 method: "GET",
-                headers: {token: localStorage.token}
+                // headers: {token: localStorage.token}
             });
 
             const parseRes = await response.json();
@@ -82,37 +82,37 @@ const QuestionsPage = (props) => {
         setSelectedID(id);
     }
 
-    async function getUser(id){
-        //e.preventDefault();
-      try {
-        const result = await fetch(`http://localhost:5000/users/user/${id}`, {
-            method: "GET",
-            headers: {token: localStorage.token}
-        });
+    // async function getUser(id){
+    //     //e.preventDefault();
+    //   try {
+    //     const result = await fetch(`http://localhost:5000/users/user/${id}`, {
+    //         method: "GET",
+    //         headers: {token: localStorage.token}
+    //     });
 
-        const parseRes = await result.json();
-        //return parseRes.fistname + " " + parseRes.lastname;
-        //return parseRes.firstname;
-        setName(parseRes);
-        //console.log(name);
-      } catch (err) {
-          console.error(err.message);
-      }
+    //     const parseRes = await result.json();
+    //     //return parseRes.fistname + " " + parseRes.lastname;
+    //     //return parseRes.firstname;
+    //     setName(parseRes);
+    //     //console.log(name);
+    //   } catch (err) {
+    //       console.error(err.message);
+    //   }
 
-    }
+    // }
 
-    const author = (id) => {
-        getUser(id);
-        return name.firstname;
-        //return user.firstname + " " + user.lastname;
-    }
+    // const author = (id) => {
+    //     getUser(id);
+    //     return name.firstname;
+    //     //return user.firstname + " " + user.lastname;
+    // }
 
     async function addLike(e, question){
         e.preventDefault();
         try {
             const response = await fetch(`http://localhost:5000/my-questions/like/${question}`, {
             method: "PUT",
-            headers: {token: localStorage.token}
+            // headers: {token: localStorage.token}
 
         });
 

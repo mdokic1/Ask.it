@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
 
     if(!jwtToken) {
       console.log("Greska");
-      return res.status(403).json("Not authorized");
+      return res.json("Not authorized");
     }
 
     const payload = jwt.verify(jwtToken, process.env.jwtSecret);
@@ -16,6 +16,6 @@ module.exports = async (req, res, next) => {
 
   } catch (err) {
     console.error(err.message);
-    return res.status(403).json("Not authorized");
+    return res.json("Not authorized");
   }
 };
